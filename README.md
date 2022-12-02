@@ -17,3 +17,5 @@ This is a simple reservation system for the 2022 World Cup. It is a simple web a
     ```
 
 3. See the [API's README](server/README.md) for instructions on how to set up the server.
+
+4. See the [client's README](client/README.md) for instructions on how to set up the client.

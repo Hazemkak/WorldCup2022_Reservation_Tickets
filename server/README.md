@@ -1,6 +1,6 @@
 # Project's REST API Installation Guide
 
-Follow the instructions below to run the project.
+Follow the instructions below to run the project's server.
 
 ## Table of Contents
 
