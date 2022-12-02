@@ -1,14 +1,22 @@
 import os
 from pathlib import Path
-from dotenv import load_dotenv
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load environment variables from .env file
-load_dotenv('.env')
+# Env variables
+env = environ.Env()
+environ.Env.read_env()
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env("SECRET_KEY")
+DEBUG = env("DEBUG")
+DB_NAME = env("DB_NAME")
+
+DB_USER = env("DB_USER")
+DB_PASSWORD = env("DB_PASSWORD")
+DB_HOST = env("DB_HOST")
+DB_PORT = env('DB_PORT')
 
 DEBUG = os.environ.get('DEBUG') == 'True'
 
