@@ -8,3 +8,4 @@ python-dotenv==0.21.0
 pytz==2022.6
 sqlparse==0.4.3
 environ
+PyJWT==2.6.0
