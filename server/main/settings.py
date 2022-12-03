@@ -79,14 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
-# JWT
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ]
-}
-
 # Database
 
 DATABASES = {
@@ -117,13 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=55),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-
-    'AUTH_HEADER_TYPES': ('Bearer',),
-}
 
 
 # Internationalization
