@@ -22,3 +22,6 @@ class User(models.Model):
                             default=Role.FAN, max_length=8)
     nationality = models.CharField(null=True, max_length=32)
     isVerified = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'user'
