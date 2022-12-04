@@ -4,3 +4,4 @@
 
 # Seeding teams
 python manage.py loaddata seeds/teams.json
+python manage.py loaddata seeds/referees.json
