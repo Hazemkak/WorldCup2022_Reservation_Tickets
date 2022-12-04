@@ -8,7 +8,8 @@ class ManagerGuard(permissions.BasePermission):
         try:
             jwt = request.headers['Authorization']
         except:
-            raise APIException("token required", 401)
+            raise APIException("Token required", 401)
+        
         payload = isValidToken(jwt)
 
         if payload == None:
@@ -26,6 +27,7 @@ class JwtGuard(permissions.BasePermission):
             jwt = request.headers['Authorization']
         except:
             raise APIException("token required", 401)
+        
         payload = isValidToken(jwt)
 
         if payload == None:
@@ -40,6 +42,7 @@ class AdminGuard(permissions.BasePermission):
             jwt = request.headers['Authorization']
         except:
             raise APIException("token required", 401)
+        
         payload = isValidToken(jwt)
 
         if payload == None:
