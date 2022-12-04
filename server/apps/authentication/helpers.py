@@ -1,4 +1,3 @@
-from rest_framework_simplejwt.tokens import RefreshToken
 from jwt import encode, decode
 from main.settings import JWT_SECRET, JWT_DURATION_MINUTES
 import datetime

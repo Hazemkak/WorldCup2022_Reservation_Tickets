@@ -1,7 +1,6 @@
-from .helpers import isValidToken
-from django.http import JsonResponse
 from rest_framework import permissions
-from rest_framework import exceptions
+from rest_framework.exceptions import APIException
+from .helpers import isValidToken
 
 
 class ManagerGuard(permissions.BasePermission):
@@ -9,14 +8,14 @@ class ManagerGuard(permissions.BasePermission):
         try:
             jwt = request.headers['Authorization']
         except:
-            raise exceptions.APIException("token required", 401)
+            raise APIException("token required", 401)
         payload = isValidToken(jwt)
 
         if payload == None:
-            raise exceptions.APIException("Expired token", 401)
+            raise APIException("Expired token", 401)
 
         if int(payload['role']) != 1:
-            raise exceptions.APIException("You are not authorized", 403)
+            raise APIException("You are not authorized", 403)
 
         return True
 
@@ -26,11 +25,11 @@ class JwtGuard(permissions.BasePermission):
         try:
             jwt = request.headers['Authorization']
         except:
-            raise exceptions.APIException("token required", 401)
+            raise APIException("token required", 401)
         payload = isValidToken(jwt)
 
         if payload == None:
-            raise exceptions.APIException("Expired token", 401)
+            raise APIException("Expired token", 401)
 
         return True
 
@@ -40,13 +39,13 @@ class AdminGuard(permissions.BasePermission):
         try:
             jwt = request.headers['Authorization']
         except:
-            raise exceptions.APIException("token required", 401)
+            raise APIException("token required", 401)
         payload = isValidToken(jwt)
 
         if payload == None:
-            raise exceptions.APIException("Expired token", 401)
+            raise APIException("Expired token", 401)
 
         if int(payload['role']) != 2:
-            raise exceptions.APIException("You are not authorized", 403)
+            raise APIException("You are not authorized", 403)
 
         return True
