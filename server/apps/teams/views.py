@@ -9,6 +9,9 @@ class TeamView(APIView):
     permission_classes = [ManagerGuard]
 
     def get(self, request):
-        teams = Team.objects.all()
-        serializedTeams = TeamSerializer(teams, many=True)
-        return Response(data={'teams': serializedTeams.data}, status=200)
+        try:
+            teams = Team.objects.all()
+            serializedTeams = TeamSerializer(teams, many=True)
+            return Response(data={'teams': serializedTeams.data}, status=200)
+        except:
+            return Response(data={"error":"Error while retrieving countries"},status=500)
