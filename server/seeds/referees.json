@@ -1,0 +1,167 @@
+[
+  {
+    "model": "referees.referee",
+    "pk": 1,
+    "fields": { "firstName": "Ivan", "lastName": "Barton", "role": 1 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 2,
+    "fields": { "firstName": "Chris", "lastName": "Beath", "role": 1 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 3,
+    "fields": { "firstName": "Raphael", "lastName": "Claus", "role": 1 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 4,
+    "fields": { "firstName": "Matthew", "lastName": "Conger", "role": 1 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 5,
+    "fields": { "firstName": "Ismail", "lastName": "Elfath", "role": 1 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 6,
+    "fields": { "firstName": "Mario", "lastName": "Escobar", "role": 1 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 7,
+    "fields": { "firstName": "Alireza", "lastName": "Faghani", "role": 1 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 8,
+    "fields": { "firstName": "Stephanie", "lastName": "Frappart", "role": 1 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 9,
+    "fields": { "firstName": "Bakary", "lastName": "Gassama", "role": 1 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 10,
+    "fields": { "firstName": "Mustapha", "lastName": "Ghorbal", "role": 1 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 11,
+    "fields": { "firstName": "Victor", "lastName": "Gomes", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 12,
+    "fields": { "firstName": "Istvan", "lastName": "Kovacs", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 13,
+    "fields": { "firstName": "Ning", "lastName": "Ma", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 14,
+    "fields": { "firstName": "Danny", "lastName": "Makkelie", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 15,
+    "fields": { "firstName": "Szymon", "lastName": "Marciniak", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 16,
+    "fields": { "firstName": "Antonio", "lastName": "Mateu", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 17,
+    "fields": { "firstName": "Andres", "lastName": "Matias", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 18,
+    "fields": { "firstName": "Mohammed", "lastName": "Abdulla", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 19,
+    "fields": { "firstName": "Salima", "lastName": "Mukansanga", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 20,
+    "fields": { "firstName": "Maguette", "lastName": "Nâ€™Diaye", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 21,
+    "fields": { "firstName": "Michael", "lastName": "Oliver", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 22,
+    "fields": { "firstName": "Daniele", "lastName": "Orsato", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 23,
+    "fields": { "firstName": "Kevin", "lastName": "Ortega", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 24,
+    "fields": { "firstName": "Cesar", "lastName": "Ramos", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 25,
+    "fields": { "firstName": "Fernando", "lastName": "Rapallini", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 26,
+    "fields": { "firstName": "Wilton", "lastName": "Sampaio", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 27,
+    "fields": { "firstName": "Daniel", "lastName": "Siebert", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 28,
+    "fields": { "firstName": "Janny", "lastName": "Sikazwe", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 29,
+    "fields": { "firstName": "Anthony", "lastName": "Taylor", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 30,
+    "fields": { "firstName": "Facundo", "lastName": "Tello", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 31,
+    "fields": { "firstName": "Clement", "lastName": "Turpin", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 32,
+    "fields": { "firstName": "Jesus", "lastName": "Valenzuela", "role": 0 }
+  },
+  {
+    "model": "referees.referee",
+    "pk": 33,
+    "fields": { "firstName": "Yoshimi", "lastName": "Yamashita", "role": 0 }
+  }
+]
