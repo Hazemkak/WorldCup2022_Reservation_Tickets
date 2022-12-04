@@ -6,7 +6,10 @@ from rest_framework import exceptions
 
 class ManagerGuard(permissions.BasePermission):
     def has_permission(self, request, view):
-        jwt = request.headers['Authorization']
+        try:
+            jwt = request.headers['Authorization']
+        except:
+            raise exceptions.APIException("token required", 401)
         payload = isValidToken(jwt)
 
         if payload == None:
@@ -20,7 +23,10 @@ class ManagerGuard(permissions.BasePermission):
 
 class JwtGuard(permissions.BasePermission):
     def has_permission(self, request, view):
-        jwt = request.headers['Authorization']
+        try:
+            jwt = request.headers['Authorization']
+        except:
+            raise exceptions.APIException("token required", 401)
         payload = isValidToken(jwt)
 
         if payload == None:
@@ -31,7 +37,10 @@ class JwtGuard(permissions.BasePermission):
 
 class AdminGuard(permissions.BasePermission):
     def has_permission(self, request, view):
-        jwt = request.headers['Authorization']
+        try:
+            jwt = request.headers['Authorization']
+        except:
+            raise exceptions.APIException("token required", 401)
         payload = isValidToken(jwt)
 
         if payload == None:
