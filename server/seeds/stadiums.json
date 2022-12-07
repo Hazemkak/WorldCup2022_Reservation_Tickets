@@ -1,0 +1,90 @@
+[
+    {
+        "model": "stadiums.stadium",
+        "pk": 1,
+        "fields": {
+            "name": "Lusail Stadium",
+            "city": "Lusail City",
+            "country": "Qatar",
+            "rows": 6,
+            "seatsPerRow": 10,
+        }
+    },
+    {
+        "model": "stadiums.stadium",
+        "pk": 2,
+        "fields": {
+            "name": "Al Bayt Stadium",
+            "city": "Al Khor",
+            "country": "Qatar",
+            "rows": 8,
+            "seatsPerRow": 10
+        }
+    },
+    {
+        "model": "stadiums.stadium",
+        "pk": 3,
+        "fields": {
+            "name": "Khalifa International Stadium",
+            "city": "Doha",
+            "country": "Qatar",
+            "rows": 9,
+            "seatsPerRow": 10
+        }
+    },
+    {
+        "model": "stadiums.stadium",
+        "pk": 4,
+        "fields": {
+            "name": "Ahmad Bin Ali Stadium",
+            "city": "Al-Rayyan",
+            "country": "Qatar",
+            "rows": 8,
+            "seatsPerRow": 10
+        }
+    },
+    {
+        "model": "stadiums.stadium",
+        "pk": 5,
+        "fields": {
+            "name": "Education City Stadium",
+            "city": "Doha",
+            "country": "Qatar",
+            "rows": 9,
+            "seatsPerRow": 10
+        }
+    },
+    {
+        "model": "stadiums.stadium",
+        "pk": 6,
+        "fields": {
+            "name": "Al Thumama Stadium",
+            "city": "Doha",
+            "country": "Qatar",
+            "rows": 9,
+            "seatsPerRow": 10
+        }
+    },
+    {
+        "model": "stadiums.stadium",
+        "pk": 7,
+        "fields": {
+            "name": "Al Janoub Stadium",
+            "city": "Al-Wakrah",
+            "country": "Qatar",
+            "rows": 7,
+            "seatsPerRow": 10
+        }
+    },
+    {
+        "model": "stadiums.stadium",
+        "pk": 8,
+        "fields": {
+            "name": "Stadium 974",
+            "city": "Doha",
+            "country": "Qatar",
+            "rows": 7,
+            "seatsPerRow": 10
+        }
+    }
+]

@@ -1,4 +1,6 @@
 from django.db import models
+from datetime import datetime
+
 from apps.stadiums.models import Stadium
 from apps.referees.models import Referee
 from apps.teams.models import Team
@@ -6,7 +8,8 @@ from apps.teams.models import Team
 
 class Match(models.Model):
     stadium = models.ForeignKey(Stadium, on_delete=models.CASCADE)
-    startsAt = models.DateTimeField()
+    match_date = models.DateField(default=datetime.now, blank=True)
+    match_time = models.TimeField(default=datetime.now, blank=True)
 
     class Meta:
         db_table = 'match'
