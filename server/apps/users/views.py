@@ -6,7 +6,7 @@ from rest_framework.exceptions import APIException
 from .models import User
 from .serializers import UserSerializer
 from apps.authentication.helpers import isValidToken
-from apps.authentication.middlewares import AdminGuard, JwtGuard
+from apps.authentication.middlewares import AdminGuard, FanGuard
 
 
 class AdminUsersList(APIView):
@@ -54,7 +54,7 @@ class AdminUserDetail(APIView):
 
 
 class UserProfile(APIView):
-    permission_classes = [JwtGuard]
+    permission_classes = [FanGuard]
 
     def get(self, request, username):
         try:
