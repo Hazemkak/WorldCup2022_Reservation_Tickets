@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
-from .models import Stadium
 from rest_framework.response import Response
+
+from .models import Stadium
 from .serializers import StadiumSerializer
 from apps.authentication.middlewares import ManagerGuard
 
