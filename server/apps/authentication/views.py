@@ -30,6 +30,7 @@ class Login(APIView):
                 'id': user.id,
                 'username': user.username,
                 'role': user.role,
+                'isVerified': user.isVerified,
                 'created_at': datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")
             }
 
