@@ -41,7 +41,7 @@ const Register: React.FC = () => {
         (values: any) => {
             setLoading(true);
             axios
-                .post(API_BASE_URL + "/auth/register/", values)
+                .post(API_BASE_URL + "/auth/register", values)
                 .then((res) => {
                     setApiError("");
                     window.location.href = "/auth/login";
@@ -225,7 +225,9 @@ const Register: React.FC = () => {
                                 value={props.value}
                                 onChange={props.onChange}
                             >
-                                <MenuItem value="">Choose gender</MenuItem>
+                                <MenuItem value="" disabled selected>
+                                    Choose gender
+                                </MenuItem>
                                 <MenuItem value="1">Male</MenuItem>
                                 <MenuItem value="0">Female</MenuItem>
                             </Select>
@@ -256,7 +258,9 @@ const Register: React.FC = () => {
                                 value={props.value}
                                 onChange={props.onChange}
                             >
-                                <MenuItem value="">Choose role</MenuItem>
+                                <MenuItem value="" disabled selected>
+                                    Choose role
+                                </MenuItem>
                                 <MenuItem value="0">Fan</MenuItem>
                                 <MenuItem value="1">Manager</MenuItem>
                             </Select>
@@ -286,7 +290,10 @@ const Register: React.FC = () => {
                 </Button>
                 <Grid container>
                     <Grid item>
-                        <Link href="/auth/login">
+                        <Link
+                            href="/auth/login"
+                            sx={{ color: "text.secondary" }}
+                        >
                             Already have an account? Login
                         </Link>
                     </Grid>

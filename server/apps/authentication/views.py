@@ -40,7 +40,10 @@ class Login(APIView):
 
         if user:
             if not user.check_password(password):
-                raise AuthenticationFailed("Incorrect password", status.HTTP_401_UNAUTHORIZED)
+                return Response({"error": "Incorrect password"}, status.HTTP_401_UNAUTHORIZED)
+
+            if int(user.role) == 1 and not user.isVerified:
+                return Response({"error": "User not verified"}, status.HTTP_401_UNAUTHORIZED)
 
             payload = {
                 'id': user.id,

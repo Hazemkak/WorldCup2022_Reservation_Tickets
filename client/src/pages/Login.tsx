@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import Link from "@mui/material/Link";
 import axios from "axios";
 import { setLoggedInUser } from "../helpers/auth";
 import { API_BASE_URL } from "../config/variables";
@@ -27,7 +27,7 @@ const Login: React.FC = () => {
         (values: any) => {
             setLoading(true);
             axios
-                .post(API_BASE_URL + "/auth/login/", values)
+                .post(API_BASE_URL + "/auth/login", values)
                 .then((res) => {
                     setApiError("");
                     const user = {
@@ -118,7 +118,10 @@ const Login: React.FC = () => {
                 </Button>
                 <Grid container>
                     <Grid item>
-                        <Link to="/auth/register">
+                        <Link
+                            href="/auth/register"
+                            sx={{ color: "text.secondary" }}
+                        >
                             {"Don't have an account? Register"}
                         </Link>
                     </Grid>
