@@ -132,7 +132,10 @@ const Users: React.FC = function () {
         <Grid container spacing={4}>
             {usersRequests.length > 0 && (
                 <Grid item xs={12} md={6}>
-                    <h2>Managers Requests</h2>
+                    <h2>
+                        Managers Requests{" "}
+                        <small>({usersRequests.length})</small>
+                    </h2>
                     <List dense={false}>
                         {usersRequests.map((userRequest) => (
                             <ListItem
@@ -178,7 +181,9 @@ const Users: React.FC = function () {
 
             {users.length > 0 && (
                 <Grid item xs={12} md={usersRequests.length > 0 ? 6 : 12}>
-                    <h2>Users</h2>
+                    <h2>
+                        Users <small>({users.length})</small>
+                    </h2>
                     <List dense={false}>
                         {users.map((user) => (
                             <ListItem
