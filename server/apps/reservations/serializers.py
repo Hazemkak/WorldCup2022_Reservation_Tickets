@@ -12,7 +12,7 @@ class ReservationSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'match', 'reservationDate', 'seatId']
 
     def get_user(self, obj):
-        return UserSerializer(obj.userId).data
+        return UserSerializer(obj.user).data
 
     def get_match(self, obj):
-        return MatchSerializer(obj.matchId).data
+        return MatchSerializer(obj.match).data

@@ -1,8 +1,7 @@
 from django.urls import path
-from .views import MatchReservations, CreateReservation, DeleteReservation
+from .views import MatchReservations, ReservationView
 
 urlpatterns = [
     path('reservations/<int:match_id>', MatchReservations.as_view()),
-    path('reservations/<int:match_id>/create', CreateReservation.as_view()),
-    path('reservations/<int:match_id>/cancel', DeleteReservation.as_view()),
+    path('reservations', ReservationView.as_view()),
 ]
