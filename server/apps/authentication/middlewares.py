@@ -9,7 +9,7 @@ class AdminGuard(permissions.BasePermission):
             jwt = request.headers['Authorization']
         except:
             raise APIException("token required", 401)
-        
+
         payload = isValidToken(jwt)
 
         if payload == None:
@@ -27,7 +27,7 @@ class ManagerGuard(permissions.BasePermission):
             jwt = request.headers['Authorization']
         except:
             raise APIException("Token required", 401)
-        
+
         payload = isValidToken(jwt)
 
         if payload == None:
@@ -45,13 +45,38 @@ class FanGuard(permissions.BasePermission):
             jwt = request.headers['Authorization']
         except:
             raise APIException("token required", 401)
-        
+
         payload = isValidToken(jwt)
 
         if payload == None:
             raise APIException("Expired token", 401)
 
         if int(payload['role']) != 0:
+            raise APIException("You are not authorized", 403)
+
+        return True
+
+# Used to check if userId & jwt userId is similar or not
+
+
+class AuthorizationGuard(permissions.BasePermission):
+    def has_permission(self, request, view):
+        try:
+            jwt = request.headers['Authorization']
+        except:
+            raise APIException("token required", 401)
+
+        try:
+            userId = request.data['user_id']
+        except:
+            raise APIException("user id is required", 400)
+
+        payload = isValidToken(jwt)
+
+        if payload == None:
+            raise APIException("Expired token", 401)
+
+        if payload['id'] != userId:
             raise APIException("You are not authorized", 403)
 
         return True
