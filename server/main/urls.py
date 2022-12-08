@@ -9,4 +9,5 @@ urlpatterns = [
     path('api/', include('apps.matches.urls')),
     path('api/', include('apps.referees.urls')),
     path('api/', include('apps.stadiums.urls')),
+    path('api/', include('apps.reservations.urls')),
 ]

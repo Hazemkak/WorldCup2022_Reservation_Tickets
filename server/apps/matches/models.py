@@ -8,8 +8,8 @@ from apps.teams.models import Team
 
 class Match(models.Model):
     stadium = models.ForeignKey(Stadium, on_delete=models.CASCADE)
-    match_date = models.DateField(default=datetime.now, blank=True)
-    match_time = models.TimeField(default=datetime.now, blank=True)
+    match_date = models.DateField()
+    match_time = models.TimeField()
 
     class Meta:
         db_table = 'match'
