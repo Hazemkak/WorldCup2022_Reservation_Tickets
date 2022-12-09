@@ -19,12 +19,7 @@ import axios from "axios";
 import useFetch from "../../hooks/useFetch";
 import { User } from "../../types";
 import { API_BASE_URL } from "../../config/variables";
-
-const roles: { [key: string]: string } = {
-    "0": "Fan",
-    "1": "Manager",
-    "2": "Site Administrator",
-};
+import { roles } from "../../helpers/user";
 
 const Users: React.FC = function () {
     const [usersRequests, setUsersRequests] = useState<User[]>([]);

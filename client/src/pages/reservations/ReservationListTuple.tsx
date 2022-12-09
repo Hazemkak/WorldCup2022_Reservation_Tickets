@@ -1,74 +1,107 @@
-import * as React from "react";
+import React from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Reservation } from "../../types";
+import CancelIcon from "@mui/icons-material/Cancel";
+import { Button, Typography } from "@mui/material";
+import moment from "moment";
 import Axios from "axios";
+import { Link } from "react-router-dom";
+import { Reservation } from "../../types";
 import { getLoggedInUser } from "../../helpers/auth";
 import { API_BASE_URL } from "../../config/variables";
-import { AlertContext, useAlert } from "../../context/AlertContext";
+import { useAlert } from "../../context/AlertContext";
 
 interface ReservationListTupleProps {
-  reservation: Reservation;
-  refetchReservations: Function;
+    reservation: Reservation;
+    refetchReservations: Function;
 }
-function ReservationListTuple(props: ReservationListTupleProps) {
-  const { reservation, refetchReservations } = props;
-  const [disabled, setDisabled] = React.useState(false);
 
-  const { setAlert } = useAlert();
+const ReservationListTuple: React.FC<ReservationListTupleProps> = ({
+    reservation,
+    refetchReservations,
+}) => {
+    const [disabled, setDisabled] = React.useState(false);
 
-  const handleDelete = (reservationId: number) => {
-    setDisabled(true);
-    Axios({
-      method: "DELETE",
-      url: `${API_BASE_URL}/reservations`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      data: {
-        reservationId,
-        user_id: getLoggedInUser()?.id,
-      },
-    })
-      .then((res: { data: { message: string } }) => {
-        setAlert(res?.data?.message, "success");
-        refetchReservations();
-      })
-      .catch((err: { response: { data: { detail: string } } }) => {
-        setAlert(err?.response?.data?.detail);
-      })
-      .finally(() => setDisabled(false));
-  };
+    const { setAlert } = useAlert();
 
-  return (
-    <TableRow
-      key={reservation?.id}
-      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-    >
-      <TableCell component="th" scope="row">
-        {reservation?.seatId}
-      </TableCell>
-      <TableCell align="left">{`${reservation?.match?.teams[0]?.name} vs ${reservation?.match?.teams[1]?.name}`}</TableCell>
-      <TableCell align="left">
-        {new Date(reservation?.match?.match_date).toDateString()}
-      </TableCell>
-      <TableCell align="left">{reservation?.match?.match_time}</TableCell>
-      <TableCell align="right">
-        <IconButton
-          disabled={disabled}
-          color="error"
-          aria-label="delete reservation"
-          component="label"
-          onClick={() => handleDelete(reservation?.id)}
+    const handleDelete = (reservationId: number) => {
+        if (
+            !window.confirm("Are you sure you want to delete this reservation?")
+        ) {
+            return;
+        }
+
+        setDisabled(true);
+        Axios({
+            method: "DELETE",
+            url: `${API_BASE_URL}/reservations`,
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            data: {
+                reservationId,
+                user_id: getLoggedInUser()?.id,
+            },
+        })
+            .then((res: { data: { message: string } }) => {
+                setAlert(res?.data?.message, "success");
+                refetchReservations();
+            })
+            .catch((err: { response: { data: { detail: string } } }) => {
+                setAlert(err?.response?.data?.detail);
+            })
+            .finally(() => setDisabled(false));
+    };
+
+    return (
+        <TableRow
+            key={reservation?.id}
+            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
         >
-          <DeleteIcon color="error" />
-        </IconButton>
-      </TableCell>
-    </TableRow>
-  );
-}
+            <TableCell component="th" scope="row">
+                {reservation?.seatId}
+            </TableCell>
+            <TableCell align="left">
+                <Link
+                    to={`/matches/${reservation?.match?.id}`}
+                    style={{
+                        textDecoration: "none",
+                        color: "#3636ff",
+                    }}
+                >
+                    {reservation?.match?.teams[0]?.name} vs.{" "}
+                    {reservation?.match?.teams[1]?.name}
+                </Link>
+            </TableCell>
+            <TableCell align="left">
+                {moment(reservation?.match?.match_date).calendar({
+                    lastWeek: "[Last] dddd",
+                    lastDay: "[Yesterday]",
+                    sameDay: "[Today]",
+                    nextDay: "[Tomorrow]",
+                    nextWeek: "dddd",
+                    sameElse: "Do of MMM, YYYY",
+                })}
+            </TableCell>
+            <TableCell align="left">
+                {moment(reservation?.match?.match_time, "HH:mm:ss").format(
+                    "h:mm A"
+                )}
+            </TableCell>
+            <TableCell align="center">
+                <Button
+                    disabled={disabled}
+                    aria-label="Cancel"
+                    color="error"
+                    onClick={() => handleDelete(reservation?.id)}
+                >
+                    <Typography component="p">Cancel</Typography>
+                    <CancelIcon sx={{ ml: 1 }} />
+                </Button>
+            </TableCell>
+        </TableRow>
+    );
+};
 
 export default ReservationListTuple;

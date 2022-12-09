@@ -13,15 +13,15 @@ import { setLoggedInUser } from "../helpers/auth";
 import { API_BASE_URL } from "../config/variables";
 
 const Login: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [apiError, setApiError] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
+    const [apiError, setApiError] = useState<string>("");
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm();
 
     const onSubmit = useCallback(
         (values: any) => {
@@ -58,54 +58,54 @@ const Login: React.FC = () => {
         [reset]
     );
 
-  return (
-    <Box
-      sx={{
-        marginTop: 12,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography component="h1" variant="h5">
-        Login
-      </Typography>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{ marginTop: "1rem", maxWidth: "650px" }}
-      >
-        <TextField
-          margin="normal"
-          fullWidth
-          id="username"
-          label="Username"
-          autoComplete="username"
-          autoFocus
-          {...register("username", {
-            required: "Username is required",
-          })}
-          error={Boolean(errors.username)}
-          helperText={errors.username?.message?.toString()}
-        />
+    return (
+        <Box
+            sx={{
+                marginTop: 12,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+            }}
+        >
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+                Login
+            </Typography>
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                style={{ marginTop: "1rem", maxWidth: "650px" }}
+            >
+                <TextField
+                    margin="normal"
+                    fullWidth
+                    id="username"
+                    label="Username"
+                    autoComplete="username"
+                    autoFocus
+                    {...register("username", {
+                        required: "Username is required",
+                    })}
+                    error={Boolean(errors.username)}
+                    helperText={errors.username?.message?.toString()}
+                />
 
-        <TextField
-          margin="normal"
-          fullWidth
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          {...register("password", {
-            required: "Password is required",
-          })}
-          error={Boolean(errors.password)}
-          helperText={errors.password?.message?.toString()}
-        />
+                <TextField
+                    margin="normal"
+                    fullWidth
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    {...register("password", {
+                        required: "Password is required",
+                    })}
+                    error={Boolean(errors.password)}
+                    helperText={errors.password?.message?.toString()}
+                />
 
-        <Box sx={{ color: "red", mt: 2 }}>{apiError}</Box>
+                <Box sx={{ color: "red", mt: 2 }}>{apiError}</Box>
 
                 <Button
                     type="submit"

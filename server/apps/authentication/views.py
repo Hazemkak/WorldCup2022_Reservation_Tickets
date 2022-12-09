@@ -14,11 +14,11 @@ class Register(APIView):
     def post(self, request):
         # check if the user is already registered
         if User.objects.filter(Q(username=request.data['username']) | Q(email=request.data['email'])).exists():
-            return Response({"error": "User already exists"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": "User already exists"}, status=status.HTTP_400_BAD_REQUEST)
 
         # check if passwords match
         if request.data['password'] != request.data['confirmPassword']:
-            return Response({"error": "Passwords don't match"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": "Passwords don't match"}, status=status.HTTP_400_BAD_REQUEST)
 
         # check if the role is fan
         if int(request.data['role']) == 0:
@@ -40,10 +40,10 @@ class Login(APIView):
 
         if user:
             if not user.check_password(password):
-                return Response({"error": "Incorrect password"}, status.HTTP_401_UNAUTHORIZED)
+                return Response({"detail": "Incorrect password"}, status.HTTP_401_UNAUTHORIZED)
 
             if int(user.role) == 1 and not user.isVerified:
-                return Response({"error": "User not verified"}, status.HTTP_401_UNAUTHORIZED)
+                return Response({"detail": "User not verified"}, status.HTTP_401_UNAUTHORIZED)
 
             payload = {
                 'id': user.id,

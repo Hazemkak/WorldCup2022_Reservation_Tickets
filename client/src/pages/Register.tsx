@@ -15,14 +15,9 @@ import {
     Select,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { API_BASE_URL } from "../config/variables";
 import axios from "axios";
-
-const isValidEmail = (email: string): boolean =>
-    // eslint-disable-next-line no-useless-escape
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        email
-    );
+import { API_BASE_URL } from "../config/variables";
+import { isValidEmail } from "../helpers/user";
 
 const Register: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);

@@ -15,7 +15,7 @@ class StadiumView(APIView):
             serializedStadiums = StadiumSerializer(stadiums, many=True)
             return Response(data={'stadiums': serializedStadiums.data}, status=200)
         except:
-            return Response(data={"error": "Error while retrieving stadiums"}, status=500)
+            return Response(data={"detail": "Error while retrieving stadiums"}, status=500)
 
     def post(self, request):
         serializer = StadiumSerializer(data=request.data)
