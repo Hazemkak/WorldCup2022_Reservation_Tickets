@@ -12,6 +12,7 @@ import { Match } from "../../types";
 import MatchCard from "./MatchCard";
 import "./styles/MatchList.css";
 import NoMatchesToday from "./NoMatchesToday";
+import moment from "moment";
 
 export const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -26,10 +27,14 @@ function MatchList() {
     const [date, setDate] = React.useState<Dayjs>(dayjs(new Date()));
     const [matches, error, loading, refetchMatches] = useFetch("matches", {
         method: "GET",
-        url: `/matches?day=${date?.year()}-${date.month() + 1}-${date?.date()}`,
+        url: `/matches?day=${moment(date?.toString()).format("YYYY-MM-DD")}`,
     }) as unknown as [Match[], unknown, boolean, Function];
 
-    React.useEffect(() => refetchMatches(), [date, refetchMatches]);
+    React.useEffect(() => {
+        refetchMatches();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [date]);
 
     if (loading) return <>Loading</>;
     if (error) return <>{error}</>;

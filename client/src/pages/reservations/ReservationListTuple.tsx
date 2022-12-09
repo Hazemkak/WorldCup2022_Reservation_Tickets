@@ -81,7 +81,7 @@ const ReservationListTuple: React.FC<ReservationListTupleProps> = ({
                     sameDay: "[Today]",
                     nextDay: "[Tomorrow]",
                     nextWeek: "dddd",
-                    sameElse: "Do of MMM, YYYY",
+                    sameElse: "ddd, MMM DD",
                 })}
             </TableCell>
             <TableCell align="left">
