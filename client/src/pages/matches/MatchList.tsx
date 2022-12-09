@@ -8,8 +8,12 @@ import dayjs, { Dayjs } from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
 import useFetch from "../../hooks/useFetch";
+import { Match } from "../../types";
+import MatchCard from "./MatchCard";
+import "./styles/MatchList.css";
+import NoMatchesToday from "./NoMatchesToday";
 
-const Item = styled(Paper)(({ theme }) => ({
+export const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   boxShadow: "0px 4px 4px rgba(219, 219, 219)",
@@ -19,18 +23,16 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function MatchList() {
-  const [date, setDate] = React.useState<Dayjs | null>(dayjs(new Date()));
-  const [matches, error, loading] = useFetch("matches", {
+  const [date, setDate] = React.useState<Dayjs>(dayjs(new Date()));
+  const [matches, error, loading, refetchMatches] = useFetch("matches", {
     method: "GET",
-    url: `/matches?day=${date?.toDate().getFullYear()}-${date
-      ?.toDate()
-      .getMonth()}-${date?.toDate().getDay()}`,
-  });
-  console.log(
-    `/matches?day=${date?.toDate().getFullYear()}-${date
-      ?.toDate()
-      .getMonth()}-${date?.toDate().getDay()}`
-  );
+    url: `/matches?day=${date?.year()}-${date.month() + 1}-${date?.date()}`,
+  }) as unknown as [Match[], unknown, boolean, Function];
+
+  React.useEffect(() => refetchMatches(), [date]);
+
+  if (loading) return <>Loading</>;
+  if (error) return <>{error}</>;
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -40,13 +42,20 @@ function MatchList() {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <CalendarPicker
                 date={date}
-                onChange={(newDate) => setDate(newDate)}
+                onChange={(newDate) =>
+                  setDate(newDate ? newDate : dayjs(new Date()))
+                }
               />
             </LocalizationProvider>
           </Item>
         </Grid>
         <Grid item xs={9}>
-          <Item>2</Item>
+          <Grid container rowSpacing={1}>
+            {!matches?.length && <NoMatchesToday />}
+            {matches.map((match) => (
+              <MatchCard match={match} />
+            ))}
+          </Grid>
         </Grid>
       </Grid>
     </Box>
