@@ -9,13 +9,13 @@ import ReservationListHeader from "./ReservationListHeader";
 import ReservationListTuple from "./ReservationListTuple";
 
 function ReservationsList() {
-  const [data, error, loading] = useFetch("reservations", {
+  const [data, error, loading, refetchReservations] = useFetch("reservations", {
     method: "GET",
     url: "/reservations/list",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
-  });
+  }) as unknown as [Reservation[], unknown, boolean, Function];
 
   if (loading) return <>Loading</>;
   if (error) return <>{error}</>;
@@ -26,11 +26,12 @@ function ReservationsList() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <ReservationListHeader />
           <TableBody>
-            {!(data as Reservation[])?.length && <>No reservations yet</>}
-            {(data as Reservation[])?.map((reservation: Reservation) => (
+            {!data?.length && <>No reservations yet</>}
+            {data?.map((reservation: Reservation) => (
               <ReservationListTuple
                 key={reservation?.id}
                 reservation={reservation}
+                refetchReservations={refetchReservations}
               />
             ))}
           </TableBody>

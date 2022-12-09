@@ -11,12 +11,13 @@ import { AlertContext, useAlert } from "../../context/AlertContext";
 
 interface ReservationListTupleProps {
   reservation: Reservation;
+  refetchReservations: Function;
 }
 function ReservationListTuple(props: ReservationListTupleProps) {
-  const { reservation } = props;
+  const { reservation, refetchReservations } = props;
   const [disabled, setDisabled] = React.useState(false);
 
-  const { message, setMessage } = useAlert();
+  const { setAlert } = useAlert();
 
   const handleDelete = (reservationId: number) => {
     setDisabled(true);
@@ -33,22 +34,13 @@ function ReservationListTuple(props: ReservationListTupleProps) {
       },
     })
       .then((res: { data: { message: string } }) => {
-        console.log(res);
-        setMessage({
-          text: res?.data?.message,
-          show: true,
-          type: "success",
-        });
-        setDisabled(false);
+        setAlert(res?.data?.message, "success");
+        refetchReservations();
       })
       .catch((err: { response: { data: { detail: string } } }) => {
-        setMessage({
-          text: err?.response?.data?.detail,
-          show: true,
-          type: "error",
-        });
-        setDisabled(false);
-      });
+        setAlert(err?.response?.data?.detail);
+      })
+      .finally(() => setDisabled(false));
   };
 
   return (
