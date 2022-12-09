@@ -1,15 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "../shared/Layout";
+import AdminGuard from "../guards/AdminGuard";
+import FanGuard from "../guards/FanGuard";
+import NotLoggedIn from "../guards/NotLoggedIn";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import NotLoggedIn from "../guards/NotLoggedIn";
 import Register from "../pages/Register";
-import FanGuard from "../guards/FanGuard";
-import AdminGuard from "../guards/AdminGuard";
-import AdminUsers from "../pages/admin/Users";
-import MatchReservations from "../pages/matchReservations/MatchReservations";
 import Profile from "../pages/fan/Profile";
+import AdminUsers from "../pages/admin/Users";
+import MatchReservations from "../pages/matchReservations";
+import MatchList from "../pages/matches/MatchList";
 
 function RouterContainer() {
     return (
@@ -18,6 +19,7 @@ function RouterContainer() {
                 <Routes>
                     <Route path="*" element={<>404 not found page</>} />
                     <Route path="/" element={<Home />} />
+                    <Route path="/matches" element={<MatchList />} />
                     <Route
                         path="/match/reservations/:match_id"
                         element={<MatchReservations />}

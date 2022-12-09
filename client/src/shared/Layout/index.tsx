@@ -18,7 +18,7 @@ const theme = createTheme({
 interface LayoutProps {
     children?: React.ReactNode;
 }
-const Layout = ({ children }: LayoutProps) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
