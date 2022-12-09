@@ -1,0 +1,38 @@
+.seats_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 48px;
+  margin-top: 96px;
+  overflow-x: auto;
+  padding-bottom: 50px;
+  border: 1px solid #550065;
+  box-shadow: 0px 4px 4px rgba(#550065, 0.5);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.seat_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.seat {
+  min-width: 40px;
+  margin: 5px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #efefef;
+  box-shadow: 0px 4px 4px rgba(219, 219, 219, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+}
+.seat_reserved {
+  background: #5e4663;
+  cursor: initial;
+  color: white;
+}

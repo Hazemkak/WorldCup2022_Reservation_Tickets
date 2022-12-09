@@ -1,8 +1,7 @@
-import React from "react";
+import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { BasicProps } from "../../types";
 import Navbar from "../Navbar";
 import Footer from "../footer";
 
@@ -16,8 +15,10 @@ const theme = createTheme({
         fontFamily: "Poppins, sans-serif",
     },
 });
-
-const Layout: React.FC<BasicProps> = ({ children }) => {
+interface LayoutProps {
+    children?: React.ReactNode;
+}
+const Layout = ({ children }: LayoutProps) => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
