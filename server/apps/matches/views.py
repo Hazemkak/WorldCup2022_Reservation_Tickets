@@ -12,6 +12,12 @@ class MatchList(APIView):
     def get(self, request):
         try:
             matches = Match.objects.all()
+
+            matches_day = self.request.query_params.get('day', None)
+
+            if matches_day is not None:
+                matches = matches.filter(match_date=matches_day)
+
             serializer = MatchSerializer(matches, many=True)
             return JsonResponse(data={'matches': serializer.data}, status=status.HTTP_200_OK)
         except:

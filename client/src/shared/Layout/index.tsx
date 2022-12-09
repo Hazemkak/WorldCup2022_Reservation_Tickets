@@ -1,19 +1,9 @@
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Navbar from "../Navbar";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © FIFA - CUFE Branch "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Footer from "../footer";
 
 const theme = createTheme({
   palette: {
@@ -37,7 +27,7 @@ const Layout = ({ children }: LayoutProps) => {
         <Box sx={{ m: 6, mt: 12 }}>{children}</Box>
       </main>
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
-        <Copyright />
+        <Footer />
       </Box>
     </ThemeProvider>
   );

@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import Link from "@mui/material/Link";
 import axios from "axios";
 import { setLoggedInUser } from "../helpers/auth";
 import { API_BASE_URL } from "../config/variables";
@@ -23,40 +23,40 @@ const Login: React.FC = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = useCallback(
-    (values: any) => {
-      setLoading(true);
-      axios
-        .post(API_BASE_URL + "/auth/login", values)
-        .then((res) => {
-          setApiError("");
-          const user = {
-            first_name: res.data.user.first_name,
-            last_name: res.data.user.last_name,
-            email: res.data.user.email,
-            gender: res.data.user.gender,
-            birthDate: res.data.user.birthDate,
-            nationality: res.data.user.nationality,
-          };
-          setLoggedInUser(user, res.data.token);
-          window.location.href = "/";
-        })
-        .catch((err) => {
-          if ("detail" in err.response.data) {
-            setApiError(err.response.data.detail);
-          } else if ("error" in err.response.data) {
-            setApiError(err.response.data.error);
-          } else {
-            setApiError("Failed to login");
-          }
-        })
-        .finally(() => {
-          reset();
-          setLoading(false);
-        });
-    },
-    [reset]
-  );
+    const onSubmit = useCallback(
+        (values: any) => {
+            setLoading(true);
+            axios
+                .post(API_BASE_URL + "/auth/login", values)
+                .then((res) => {
+                    setApiError("");
+                    const user = {
+                        first_name: res.data.user.first_name,
+                        last_name: res.data.user.last_name,
+                        email: res.data.user.email,
+                        gender: res.data.user.gender,
+                        birthDate: res.data.user.birthDate,
+                        nationality: res.data.user.nationality,
+                    };
+                    setLoggedInUser(user, res.data.token);
+                    window.location.href = "/";
+                })
+                .catch((err) => {
+                    if ("detail" in err.response.data) {
+                        setApiError(err.response.data.detail);
+                    } else if ("error" in err.response.data) {
+                        setApiError(err.response.data.error);
+                    } else {
+                        setApiError("Failed to login");
+                    }
+                })
+                .finally(() => {
+                    reset();
+                    setLoading(false);
+                });
+        },
+        [reset]
+    );
 
   return (
     <Box
@@ -107,23 +107,28 @@ const Login: React.FC = () => {
 
         <Box sx={{ color: "red", mt: 2 }}>{apiError}</Box>
 
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          disabled={loading}
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Login
-        </Button>
-        <Grid container>
-          <Grid item>
-            <Link to="/auth/register">{"Don't have an account? Register"}</Link>
-          </Grid>
-        </Grid>
-      </form>
-    </Box>
-  );
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    disabled={loading}
+                    sx={{ mt: 3, mb: 2 }}
+                >
+                    Login
+                </Button>
+                <Grid container>
+                    <Grid item>
+                        <Link
+                            href="/auth/register"
+                            sx={{ color: "text.secondary" }}
+                        >
+                            {"Don't have an account? Register"}
+                        </Link>
+                    </Grid>
+                </Grid>
+            </form>
+        </Box>
+    );
 };
 
 export default Login;

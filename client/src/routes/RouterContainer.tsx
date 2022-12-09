@@ -10,6 +10,7 @@ import ReservationsList from "../pages/reservations/ReservationsList";
 import AdminGuard from "../guards/AdminGuard";
 import AdminUsers from "../pages/admin/Users";
 import MatchReservations from "../pages/matchReservations/MatchReservations";
+import MatchList from "../pages/matches/MatchList";
 
 function RouterContainer() {
   return (
@@ -22,6 +23,7 @@ function RouterContainer() {
             path="/match/reservations/:match_id"
             element={<MatchReservations />}
           />
+          <Route path="/matches" element={<MatchList />} />
 
           <Route element={<NotLoggedIn />}>
             <Route path="/auth/register" element={<Register />} />
