@@ -7,9 +7,7 @@ from .serializers import ReservationSerializer
 from apps.authentication.middlewares import ManagerGuard, FanGuard, AuthorizationGuard
 from apps.matches.models import Match
 from apps.matches.serializers import MatchSerializer
-from apps.stadiums.models import Stadium
-from apps.stadiums.serializers import StadiumSerializer
-from apps.users.models import User
+from apps.authentication.helpers import getJwtUserId
 
 import datetime
 
@@ -85,9 +83,13 @@ class ReservationView(APIView):
         except:
             return JsonResponse({'error': 'Error while deleting reservation'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+class ReservationList(APIView):
+    permission_classes = [FanGuard]
+
     def get(self, request):
         try:
-            userId = request.data['user_id']
+            userId = getJwtUserId(request)
             reservations = Reservation.objects.filter(user=userId)
 
             serializedReservations = ReservationSerializer(
