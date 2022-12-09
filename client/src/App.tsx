@@ -9,23 +9,14 @@ import Layout from "./shared/Layout";
 import ReservationsList from "./pages/reservations/ReservationsList";
 import AlertContextProvider from "./context/AlertContext";
 import AlertMessage from "./shared/Alerts/Alert";
+import RouterContainer from "./routes/RouterContainer";
 
 function App() {
   return (
     <AlertContextProvider>
       <>
         <AlertMessage />
-        <Router>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/auth/register" element={<Register />} />
-              <Route path="/auth/login" element={<Login />} />
-              <Route path="/admin/users" element={<AdminUsers />} />
-              <Route path="/reservations" element={<ReservationsList />} />
-            </Routes>
-          </Layout>
-        </Router>
+        <RouterContainer />
       </>
     </AlertContextProvider>
   );
