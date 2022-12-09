@@ -16,4 +16,4 @@ class RefereeView(APIView):
             serializedReferees = RefereeSerializer(referees, many=True)
             return Response(data={'referees': serializedReferees.data}, status=200)
         except:
-            return Response(data={"error": "Error while retrieving referees"}, status=500)
+            return Response(data={"detail": "Error while retrieving referees"}, status=500)

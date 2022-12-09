@@ -15,4 +15,4 @@ class TeamView(APIView):
             serializedTeams = TeamSerializer(teams, many=True)
             return Response(data={'teams': serializedTeams.data}, status=200)
         except:
-            return Response(data={"error":"Error while retrieving teams"},status=500)
+            return Response(data={"detail":"Error while retrieving teams"},status=500)
