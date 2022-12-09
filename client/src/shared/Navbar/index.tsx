@@ -47,8 +47,7 @@ const navItems = [
     linkPath: "reservations",
     isShownWhenLoggedOut: false,
     isShownWhenLoggedIn:
-      ["0", "1"].includes(getLoggedInUser()?.role ?? "-1") &&
-      getLoggedInUser()?.isVerified,
+      getLoggedInUser()?.role === "0" && getLoggedInUser()?.isVerified,
   },
   {
     linkText: `${getLoggedInUser()?.first_name} ${
