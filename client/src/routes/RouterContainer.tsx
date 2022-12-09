@@ -9,6 +9,7 @@ import FanGuard from "../guards/FanGuard";
 import ReservationsList from "../pages/reservations/ReservationsList";
 import AdminGuard from "../guards/AdminGuard";
 import AdminUsers from "../pages/admin/Users";
+import MatchReservations from "../pages/matchReservations/MatchReservations";
 
 function RouterContainer() {
   return (
@@ -17,6 +18,10 @@ function RouterContainer() {
         <Routes>
           <Route path="*" element={<>404 not found page</>} />
           <Route path="/" element={<Home />} />
+          <Route
+            path="/match/reservations/:match_id"
+            element={<MatchReservations />}
+          />
 
           <Route element={<NotLoggedIn />}>
             <Route path="/auth/register" element={<Register />} />
