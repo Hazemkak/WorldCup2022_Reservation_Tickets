@@ -186,11 +186,14 @@ const Navbar: React.FC = () => {
                         {!!isLoggedIn() && (
                             <Button
                                 onClick={handleLogout}
+                                variant="outlined"
+                                color="primary"
                                 sx={{
-                                    color: "#fff",
+                                    backgroundColor: "#fff",
                                     fontSize: "16px",
                                     fontWeight: "normal",
                                     textTransform: "none",
+                                    padding: "10px 20px",
                                 }}
                             >
                                 Logout
