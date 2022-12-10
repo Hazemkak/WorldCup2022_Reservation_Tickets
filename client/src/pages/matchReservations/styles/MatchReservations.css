@@ -30,6 +30,9 @@
   padding: 8px;
   cursor: pointer;
 }
+.seat:disabled {
+  cursor: default !important;
+}
 .seat_reserved {
   background: #5e4663;
   cursor: initial;

@@ -16,58 +16,49 @@ import MatchDetails from "../pages/matches/MatchDetails";
 import MatchReservations from "../pages/matchReservations";
 import ManagerMatchDetails from "../pages/manager/ManagerMatchDetails";
 import CreateMatch from "../pages/manager/CreateMatch";
+import CreateStadium from "../pages/manager/CreateStadium";
+import Page404 from "../pages/Page404";
 
 function RouterContainer() {
-    return (
-        <Router>
-            <Layout>
-                <Routes>
-                    <Route path="*" element={<>404 not found page</>} />
-                    <Route path="/" element={<Home />} />
-                    <Route path="/matches" element={<MatchList />} />
-                    <Route
-                        path="/matches/:match_id"
-                        element={<MatchDetails />}
-                    />
+  return (
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="*" element={<Page404 />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/matches" element={<MatchList />} />
+          <Route path="/matches/:match_id" element={<MatchDetails />} />
 
-                    <Route element={<NotLoggedIn />}>
-                        <Route path="/auth/register" element={<Register />} />
-                        <Route path="/auth/login" element={<Login />} />
-                    </Route>
+          <Route element={<NotLoggedIn />}>
+            <Route path="/auth/register" element={<Register />} />
+            <Route path="/auth/login" element={<Login />} />
+          </Route>
 
-                    <Route element={<FanGuard />}>
-                        <Route
-                            path="/match/reservations/:match_id"
-                            element={<MatchReservations />}
-                        />
-                        <Route
-                            path="/profile/:username"
-                            element={<Profile />}
-                        />
-                    </Route>
+          <Route element={<FanGuard />}>
+            <Route
+              path="/match/reservations/:match_id"
+              element={<MatchReservations />}
+            />
+            <Route path="/profile/:username" element={<Profile />} />
+          </Route>
 
-                    <Route element={<ManagerGuard />}>
-                        <Route
-                            path="/manager/panel"
-                            element={<ManagerPanel />}
-                        />
-                        <Route
-                            path="/manager/matches/create"
-                            element={<CreateMatch />}
-                        />
-                        <Route
-                            path="/manager/matches/:match_id"
-                            element={<ManagerMatchDetails />}
-                        />
-                    </Route>
+          <Route element={<ManagerGuard />}>
+            <Route path="/manager/panel" element={<ManagerPanel />} />
+            <Route path="/manager/matches/create" element={<CreateMatch />} />
+            <Route path="/manager/stadium/create" element={<CreateStadium />} />
+            <Route
+              path="/manager/matches/:match_id"
+              element={<ManagerMatchDetails />}
+            />
+          </Route>
 
-                    <Route element={<AdminGuard />}>
-                        <Route path="/admin/users" element={<AdminUsers />} />
-                    </Route>
-                </Routes>
-            </Layout>
-        </Router>
-    );
+          <Route element={<AdminGuard />}>
+            <Route path="/admin/users" element={<AdminUsers />} />
+          </Route>
+        </Routes>
+      </Layout>
+    </Router>
+  );
 }
 
 export default RouterContainer;
