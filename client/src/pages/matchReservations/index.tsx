@@ -4,7 +4,6 @@ import { Navigate, useParams } from "react-router-dom";
 import { getLoggedInUser } from "../../helpers/auth";
 import useFetch from "../../hooks/useFetch";
 import { Match, Reservation } from "../../types";
-import MatchDetails from "../matches/MatchDetails";
 import SeatCell from "./SeatCell";
 import "./styles/MatchReservations.css";
 
