@@ -23,7 +23,11 @@ export const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-function MatchList() {
+interface MatchListProps {
+    matchesUrl?: string;
+}
+
+const MatchList: React.FC<MatchListProps> = ({ matchesUrl }) => {
     const [date, setDate] = React.useState<Dayjs>(dayjs(new Date()));
     const [matches, error, loading, refetchMatches] = useFetch("matches", {
         method: "GET",
@@ -64,13 +68,17 @@ function MatchList() {
                     <Grid container rowSpacing={1}>
                         {!matches?.length && <NoMatchesToday />}
                         {matches.map((match) => (
-                            <MatchCard key={match.id} match={match} />
+                            <MatchCard
+                                key={match.id}
+                                matchesUrl={matchesUrl}
+                                match={match}
+                            />
                         ))}
                     </Grid>
                 </Grid>
             </Grid>
         </Box>
     );
-}
+};
 
 export default MatchList;

@@ -134,6 +134,7 @@ const Users: React.FC = function () {
                     <List dense={false}>
                         {usersRequests.map((userRequest) => (
                             <ListItem
+                                key={userRequest.id}
                                 secondaryAction={
                                     <Button
                                         aria-label="approve"
@@ -182,6 +183,7 @@ const Users: React.FC = function () {
                     <List dense={false}>
                         {users.map((user) => (
                             <ListItem
+                                key={user.id}
                                 secondaryAction={
                                     user.role !== "2" ? (
                                         <IconButton

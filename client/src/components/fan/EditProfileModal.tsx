@@ -81,8 +81,6 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                 .catch((err) => {
                     if ("detail" in err.response.data) {
                         setApiError(err.response.data.detail);
-                    } else if ("error" in err.response.data) {
-                        setApiError(err.response.data.error);
                     } else {
                         setApiError("Failed to register");
                     }

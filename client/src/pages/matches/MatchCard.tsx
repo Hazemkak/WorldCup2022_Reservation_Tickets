@@ -10,18 +10,26 @@ const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: "center",
-    margin: "0px 40px",
+    marginLeft: "40px",
     marginBottom: "10px",
     color: theme.palette.text.secondary,
 }));
 
 interface MatchCardProps {
     match: Match;
+    matchesUrl?: string;
 }
-const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
+const MatchCard: React.FC<MatchCardProps> = ({ match, matchesUrl }) => {
     return (
         <Grid className="card_link" key={match.id} item xs={12}>
-            <Link underline="none" href={`/matches/${match.id}`}>
+            <Link
+                underline="none"
+                href={
+                    matchesUrl
+                        ? `${matchesUrl}/${match.id}`
+                        : `/matches/${match.id}`
+                }
+            >
                 <Item>
                     <Grid
                         container
@@ -30,9 +38,10 @@ const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
                         alignItems="center"
                     >
                         <Grid item xs={1} />
-                        <Grid className="teams_grid" item xs={8}>
+                        <Grid item xs={8}>
                             <Grid
                                 container
+                                className="teams_grid"
                                 direction="column"
                                 alignItems="start"
                             >
