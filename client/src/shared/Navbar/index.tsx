@@ -64,7 +64,7 @@ const navItems = [
     },
     {
         linkText: "Manager Panel",
-        linkPath: "managers",
+        linkPath: "manager/panel",
         isShownWhenLoggedOut: false,
         isShownWhenLoggedIn:
             true &&

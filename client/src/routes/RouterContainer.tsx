@@ -2,16 +2,20 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "../shared/Layout";
 import AdminGuard from "../guards/AdminGuard";
+import ManagerGuard from "../guards/ManagerGuard";
 import FanGuard from "../guards/FanGuard";
 import NotLoggedIn from "../guards/NotLoggedIn";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import Profile from "../pages/fan/Profile";
 import AdminUsers from "../pages/admin/Users";
-import MatchReservations from "../pages/matchReservations";
+import ManagerPanel from "../pages/manager/ManagerPanel";
+import Profile from "../pages/fan/Profile";
 import MatchList from "../pages/matches/MatchList";
 import MatchDetails from "../pages/matches/MatchDetails";
+import MatchReservations from "../pages/matchReservations";
+import ManagerMatchDetails from "../pages/manager/ManagerMatchDetails";
+import CreateMatch from "../pages/manager/CreateMatch";
 
 function RouterContainer() {
     return (
@@ -39,6 +43,21 @@ function RouterContainer() {
                         <Route
                             path="/profile/:username"
                             element={<Profile />}
+                        />
+                    </Route>
+
+                    <Route element={<ManagerGuard />}>
+                        <Route
+                            path="/manager/panel"
+                            element={<ManagerPanel />}
+                        />
+                        <Route
+                            path="/manager/matches/create"
+                            element={<CreateMatch />}
+                        />
+                        <Route
+                            path="/manager/matches/:match_id"
+                            element={<ManagerMatchDetails />}
                         />
                     </Route>
 

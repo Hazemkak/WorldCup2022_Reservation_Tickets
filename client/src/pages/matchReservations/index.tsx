@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { getLoggedInUser } from "../../helpers/auth";
@@ -25,9 +25,13 @@ function MatchReservations() {
         url: `/reservations/${match_id}`,
     }) as unknown as [Reservation[], unknown, boolean, Function];
 
-    if (isNaN(parseInt(String(match_id)))) return <Navigate to="-1" />;
+    const isValidMatchId = !isNaN(parseInt(String(match_id)));
+    const isFan = getLoggedInUser()?.role === "0";
+    const isManager = getLoggedInUser()?.role === "1";
 
-    if (getLoggedInUser()?.role !== "0") return <Navigate to="/" />;
+    if (!isValidMatchId) return <Navigate to="-1" />;
+
+    if (!isFan && !isManager) return <Navigate to="/" />;
 
     if (loading || loadingReservation) return <>Loading</>;
 
@@ -42,15 +46,20 @@ function MatchReservations() {
     return (
         <>
             <Typography variant="h4" fontWeight="bold" textAlign="center">
-                Reserve your seat
+                {isFan && "Reserve your seat"}
+                {isManager && "Match reservations"}
             </Typography>
             <div className="seats_container">
-                <Typography color="text.secondary">
-                    You can reserve a seat by clicking on it.
-                </Typography>
-                <Typography color="text.secondary" mb={3}>
-                    You can only reserve one seat at a time.
-                </Typography>
+                {isFan && (
+                    <Box>
+                        <Typography color="text.secondary">
+                            You can reserve a seat by clicking on it.
+                        </Typography>
+                        <Typography color="text.secondary" mb={3}>
+                            You can only reserve one seat at a time.
+                        </Typography>
+                    </Box>
+                )}
                 <div>
                     {Array(data?.stadium?.rows)
                         .fill(0)
@@ -59,11 +68,12 @@ function MatchReservations() {
                                 (reservation) => reservation.seatId
                             );
                             return (
-                                <div className="seat_row">
+                                <div key={i} className="seat_row">
                                     {Array(data?.stadium?.seatsPerRow)
                                         .fill(0)
                                         .map((_, j) => (
                                             <SeatCell
+                                                key={j}
                                                 isReserved={reserved.includes(
                                                     i *
                                                         data?.stadium

@@ -64,11 +64,15 @@ const SeatCell: React.FC<SeatCellProps> = ({
             .finally(() => setDisabled(false));
     };
 
-    if (isNaN(parseInt(String(match_id)))) return <p>Wrong param</p>;
+    const isValidMatchId = !isNaN(parseInt(String(match_id)));
+    const isManager = getLoggedInUser()?.role === "1";
+
+    if (!isValidMatchId) return <p>Wrong param</p>;
 
     return (
         <button
-            disabled={disabled || isReserved}
+            disabled={disabled || isReserved || isManager}
+            style={{ cursor: isManager ? "default" : "pointer" }}
             className={`seat ${isReserved && "seat_reserved"}`}
             onClick={() => handleReservation()}
         >

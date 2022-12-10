@@ -24,12 +24,16 @@ export const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function MatchList() {
-  const [date, setDate] = React.useState<Dayjs>(dayjs(new Date()));
-  const [matches, error, loading, refetchMatches] = useFetch("matches", {
-    method: "GET",
-    url: `/matches?day=${moment(date?.toString()).format("YYYY-MM-DD")}`,
-  }) as unknown as [Match[], unknown, boolean, Function];
+interface MatchListProps {
+    matchesUrl?: string;
+}
+
+const MatchList: React.FC<MatchListProps> = ({ matchesUrl }) => {
+    const [date, setDate] = React.useState<Dayjs>(dayjs(new Date()));
+    const [matches, error, loading, refetchMatches] = useFetch("matches", {
+        method: "GET",
+        url: `/matches?day=${moment(date?.toString()).format("YYYY-MM-DD")}`,
+    }) as unknown as [Match[], unknown, boolean, Function];
 
   React.useEffect(() => {
     refetchMatches();
@@ -40,32 +44,42 @@ function MatchList() {
   if (loading) return <Loader />;
   if (error) return <>{error}</>;
 
-  return (
-    <Box sx={{ width: "100%" }}>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={3}>
-          <Item>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <CalendarPicker
-                date={date}
-                onChange={(newDate) =>
-                  setDate(newDate ? newDate : dayjs(new Date()))
-                }
-              />
-            </LocalizationProvider>
-          </Item>
-        </Grid>
-        <Grid item xs={9}>
-          <Grid container rowSpacing={1}>
-            {!matches?.length && <NoMatchesToday />}
-            {matches.map((match) => (
-              <MatchCard key={match.id} match={match} />
-            ))}
-          </Grid>
-        </Grid>
-      </Grid>
-    </Box>
-  );
-}
+    return (
+        <Box sx={{ width: "100%" }}>
+            <Grid
+                container
+                rowSpacing={1}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            >
+                <Grid item xs={3}>
+                    <Item>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <CalendarPicker
+                                date={date}
+                                onChange={(newDate) =>
+                                    setDate(
+                                        newDate ? newDate : dayjs(new Date())
+                                    )
+                                }
+                            />
+                        </LocalizationProvider>
+                    </Item>
+                </Grid>
+                <Grid item xs={9}>
+                    <Grid container rowSpacing={1}>
+                        {!matches?.length && <NoMatchesToday />}
+                        {matches.map((match) => (
+                            <MatchCard
+                                key={match.id}
+                                matchesUrl={matchesUrl}
+                                match={match}
+                            />
+                        ))}
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Box>
+    );
+};
 
 export default MatchList;
