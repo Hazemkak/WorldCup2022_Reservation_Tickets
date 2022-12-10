@@ -4,12 +4,12 @@ import RouterContainer from "./routes/RouterContainer";
 import "./App.css";
 
 function App() {
-    return (
-        <AlertContextProvider>
-            <AlertMessage />
-            <RouterContainer />
-        </AlertContextProvider>
-    );
+  return (
+    <AlertContextProvider>
+      <AlertMessage />
+      <RouterContainer />
+    </AlertContextProvider>
+  );
 }
 
 export default App;
