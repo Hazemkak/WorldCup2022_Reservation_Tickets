@@ -44,6 +44,7 @@ const Login: React.FC = () => {
                     };
                     setLoggedInUser(user, res.data.token);
                     navigate(location.state?.from || "/");
+                    window.location.reload();
                 })
                 .catch((err) => {
                     if ("detail" in err.response.data) {
