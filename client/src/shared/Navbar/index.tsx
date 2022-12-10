@@ -11,7 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 import { getLoggedInUser, isLoggedIn, logout } from "../../helpers/auth";
 
@@ -121,10 +121,11 @@ const Navbar: React.FC = () => {
                 {isLoggedIn() && (
                     <ListItem disablePadding>
                         <ListItemButton
-                            sx={{ textAlign: "center" }}
+                            sx={{ justifyContent: "center" }}
                             onClick={handleLogout}
                         >
-                            <ListItemText primary="Logout" />
+                            Logout&nbsp;
+                            <LogoutIcon />
                         </ListItemButton>
                     </ListItem>
                 )}
@@ -184,20 +185,15 @@ const Navbar: React.FC = () => {
                             return null;
                         })}
                         {!!isLoggedIn() && (
-                            <Button
+                            <IconButton
+                                color="inherit"
+                                aria-label="logout"
+                                edge="end"
                                 onClick={handleLogout}
-                                variant="outlined"
-                                color="primary"
-                                sx={{
-                                    backgroundColor: "#fff",
-                                    fontSize: "16px",
-                                    fontWeight: "normal",
-                                    textTransform: "none",
-                                    padding: "10px 20px",
-                                }}
+                                sx={{ mr: 0 }}
                             >
-                                Logout
-                            </Button>
+                                <LogoutIcon />
+                            </IconButton>
                         )}
                     </Box>
                 </Toolbar>
