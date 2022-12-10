@@ -8,7 +8,7 @@ import { User } from "../../types";
 import { getLoggedInUser } from "../../helpers/auth";
 import { genders } from "../../helpers/user";
 import EditProfileModal from "../../components/fan/EditProfileModal";
-import ReservationsList from "../reservations/ReservationsList";
+import ReservationsList from "../../components/reservations/ReservationsList";
 
 const Profile: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);

@@ -64,7 +64,7 @@ function MatchList() {
                     <Grid container rowSpacing={1}>
                         {!matches?.length && <NoMatchesToday />}
                         {matches.map((match) => (
-                            <MatchCard match={match} />
+                            <MatchCard key={match.id} match={match} />
                         ))}
                     </Grid>
                 </Grid>

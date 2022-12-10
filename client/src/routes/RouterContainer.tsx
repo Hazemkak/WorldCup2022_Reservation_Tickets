@@ -11,6 +11,7 @@ import Profile from "../pages/fan/Profile";
 import AdminUsers from "../pages/admin/Users";
 import MatchReservations from "../pages/matchReservations";
 import MatchList from "../pages/matches/MatchList";
+import MatchDetails from "../pages/matches/MatchDetails";
 
 function RouterContainer() {
     return (
@@ -21,8 +22,8 @@ function RouterContainer() {
                     <Route path="/" element={<Home />} />
                     <Route path="/matches" element={<MatchList />} />
                     <Route
-                        path="/match/reservations/:match_id"
-                        element={<MatchReservations />}
+                        path="/matches/:match_id"
+                        element={<MatchDetails />}
                     />
 
                     <Route element={<NotLoggedIn />}>
@@ -31,6 +32,10 @@ function RouterContainer() {
                     </Route>
 
                     <Route element={<FanGuard />}>
+                        <Route
+                            path="/match/reservations/:match_id"
+                            element={<MatchReservations />}
+                        />
                         <Route
                             path="/profile/:username"
                             element={<Profile />}

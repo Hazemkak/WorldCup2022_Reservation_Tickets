@@ -82,13 +82,18 @@ const Navbar: React.FC = () => {
 
     const handleLogout = () => {
         logout();
-        window.location.href = "/";
+        window.location.reload();
     };
 
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
             <Typography variant="h6" sx={{ my: 2 }}>
-                World Cup 2022
+                <Link
+                    to="/"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                >
+                    World Cup 2022
+                </Link>
             </Typography>
             <Divider />
             <List>
@@ -149,7 +154,12 @@ const Navbar: React.FC = () => {
                             display: { xs: "none", sm: "block" },
                         }}
                     >
-                        World Cup 2022
+                        <Link
+                            to="/"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                            World Cup 2022
+                        </Link>
                     </Typography>
                     <Box sx={{ display: { xs: "none", sm: "block" } }}>
                         {navItems.map((item) => {

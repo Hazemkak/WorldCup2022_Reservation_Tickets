@@ -11,10 +11,14 @@ import Link from "@mui/material/Link";
 import axios from "axios";
 import { setLoggedInUser } from "../helpers/auth";
 import { API_BASE_URL } from "../config/variables";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [apiError, setApiError] = useState<string>("");
+
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const {
         register,
@@ -39,7 +43,7 @@ const Login: React.FC = () => {
                         nationality: res.data.user.nationality,
                     };
                     setLoggedInUser(user, res.data.token);
-                    window.location.href = "/";
+                    navigate(location.state?.from || "/");
                 })
                 .catch((err) => {
                     if ("detail" in err.response.data) {
@@ -55,7 +59,7 @@ const Login: React.FC = () => {
                     setLoading(false);
                 });
         },
-        [reset]
+        [location.state?.from, navigate, reset]
     );
 
     return (

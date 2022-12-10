@@ -1,12 +1,16 @@
+import { Typography } from "@mui/material";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
+import { getLoggedInUser } from "../../helpers/auth";
 import useFetch from "../../hooks/useFetch";
 import { Match, Reservation } from "../../types";
+import MatchDetails from "../matches/MatchDetails";
 import SeatCell from "./SeatCell";
 import "./styles/MatchReservations.css";
 
 function MatchReservations() {
-    const { match_id } = useParams();
+    const { match_id } = useParams<{ match_id: string }>();
+
     const [data, error, loading] = useFetch("match", {
         method: "GET",
         url: `/matches/${match_id}`,
@@ -22,8 +26,12 @@ function MatchReservations() {
         url: `/reservations/${match_id}`,
     }) as unknown as [Reservation[], unknown, boolean, Function];
 
-    if (isNaN(parseInt(String(match_id)))) return <>Wrong param</>;
+    if (isNaN(parseInt(String(match_id)))) return <Navigate to="-1" />;
+
+    if (getLoggedInUser()?.role !== "0") return <Navigate to="/" />;
+
     if (loading || loadingReservation) return <>Loading</>;
+
     if (error || errorReservation)
         return (
             <>
@@ -34,7 +42,16 @@ function MatchReservations() {
 
     return (
         <>
+            <Typography variant="h4" fontWeight="bold" textAlign="center">
+                Reserve your seat
+            </Typography>
             <div className="seats_container">
+                <Typography color="text.secondary">
+                    You can reserve a seat by clicking on it.
+                </Typography>
+                <Typography color="text.secondary" mb={3}>
+                    You can only reserve one seat at a time.
+                </Typography>
                 <div>
                     {Array(data?.stadium?.rows)
                         .fill(0)

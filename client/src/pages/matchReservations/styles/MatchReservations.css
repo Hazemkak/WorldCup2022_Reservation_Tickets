@@ -1,14 +1,13 @@
 .seats_container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 48px;
-  margin-top: 96px;
   overflow-x: auto;
   padding-bottom: 50px;
-  border: 1px solid #550065;
-  box-shadow: 0px 4px 4px rgba(#550065, 0.5);
-  border-radius: 20px;
+  border-radius: 5px;
+  background-color: #eee;
   padding: 20px;
 }
 
