@@ -12,4 +12,4 @@ class Reservation(models.Model):
 
     class Meta:
         db_table = 'reservation'
-        unique_together = ['match_id', 'seatId']
+        unique_together = ['match', 'seatId']
