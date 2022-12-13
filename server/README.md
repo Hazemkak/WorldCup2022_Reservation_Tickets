@@ -38,18 +38,6 @@ Make sure you have the following installed:
     CREATE DATABASE world_cup_2022;
     ```
 
-- Create a user (Optional if you want to add a custom user dedicated to the project)
-
-    ```sql
-    CREATE USER YOUR_USERNAME WITH ENCRYPTED PASSWORD 'YOUR_PASSWORD';
-    ```
-
-- Grant privileges to the user (Optional if you want to add a custom user dedicated to the project)
-
-    ```sql
-    GRANT ALL PRIVILEGES ON DATABASE World_Cup_2022 TO YOUR_USERNAME;
-    ```
-
 ## Installation
 
 1. Make sure that you have cloned the project to your local machine, and that you are in the project's server directory.
@@ -83,7 +71,7 @@ Make sure you have the following installed:
 5. Copy the `.env.example` file to `.env` and fill in the required environment variables
 
     ```bash
-    cp .env.example .env
+    cp ./main/.env.example ./main/.env
     ```
 
 6. Run the migrations
@@ -92,19 +80,13 @@ Make sure you have the following installed:
     python manage.py migrate
     ```
 
-7. Create a superuser
-
-    ```bash
-    python manage.py createsuperuser
-    ```
-
-8. Run the server
+7. Run the server
 
     ```bash
     python manage.py runserver
     ```
 
-9. To deactivate the virtual environment, run the following command
+8. To deactivate the virtual environment, run the following command
 
     ```bash
     deactivate
