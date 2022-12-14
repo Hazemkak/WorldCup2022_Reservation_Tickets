@@ -7,13 +7,13 @@ This is a simple reservation system for the 2022 World Cup. It is a simple web a
 1. Clone the repository
 
     ```bash
-    git clone https://github.com/Hazemkak/WorldCup2022_Reservation_System.git
+    git clone https://github.com/Hazemkak/WorldCup2022_Reservation_Tickets.git
     ```
 
 2. Enter the project directory
 
     ```bash
-    cd WorldCup2022_Reservation_System
+    cd WorldCup2022_Reservation_Tickets
     ```
 
 3. See the [API's README](server/README.md) for instructions on how to set up the server.
