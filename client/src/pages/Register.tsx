@@ -18,10 +18,13 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import axios from "axios";
 import { API_BASE_URL } from "../config/variables";
 import { isValidEmail } from "../helpers/user";
+import { useAlert } from "../context/AlertContext";
 
 const Register: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [apiError, setApiError] = useState<string>("");
+
+    const { setAlert } = useAlert();
 
     const {
         register,
@@ -42,6 +45,7 @@ const Register: React.FC = () => {
                     window.location.href = "/auth/login";
                 })
                 .catch((err) => {
+                    setAlert("Failed to register", "error");
                     if ("detail" in err.response.data) {
                         setApiError(err.response.data.detail);
                     } else if ("error" in err.response.data) {
@@ -55,7 +59,7 @@ const Register: React.FC = () => {
                     setLoading(false);
                 });
         },
-        [reset]
+        [reset, setAlert]
     );
 
     return (

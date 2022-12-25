@@ -17,8 +17,9 @@ import moment from "moment";
 import { Match } from "../../types";
 import useFetch from "../../hooks/useFetch";
 import { API_BASE_URL } from "../../config/variables";
-import { getLoggedInUser } from "../../helpers/auth";
-import EditMatchModal from "../../components/manager/EditMatchModal";
+import { getLoggedInUser, isLoggedIn } from "../../helpers/auth";
+import EditMatchModal from "../../components/matches/EditMatchModal";
+import { isMatchPlayed } from "../../helpers/match";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#eee",
@@ -50,6 +51,8 @@ const MatchDetails: React.FC = () => {
     }, [data]);
 
     const isValidMatchId = !isNaN(parseInt(String(match_id)));
+    const isPlayed = isMatchPlayed(data);
+    const isLoggedInUser = isLoggedIn();
     const isManager = getLoggedInUser()?.role === "1";
 
     if (!isValidMatchId) return <p>Wrong param</p>;
@@ -149,6 +152,14 @@ const MatchDetails: React.FC = () => {
                                         "HH:mm:ss"
                                     ).format("h:mm A")}
                                 </Typography>
+                                {isPlayed && (
+                                    <Typography
+                                        variant="body2"
+                                        color="text.secondary"
+                                    >
+                                        Finished
+                                    </Typography>
+                                )}
                             </Box>
                             <Box
                                 sx={{
@@ -241,10 +252,14 @@ const MatchDetails: React.FC = () => {
                                     </Typography>
                                 </Box>
                             </Grid>
-                            {!isManager && (
+                            {!isManager && isLoggedInUser && (
                                 <Box sx={{ width: "100%" }}>
                                     <Divider
-                                        sx={{ my: 3, width: "90%", mx: "auto" }}
+                                        sx={{
+                                            my: 3,
+                                            width: "90%",
+                                            mx: "auto",
+                                        }}
                                     />
                                     <Grid item xs={12} sx={{ pt: 0, pl: 0 }}>
                                         <Box
@@ -262,7 +277,7 @@ const MatchDetails: React.FC = () => {
                                                     color="primary"
                                                     startIcon={<StadiumIcon />}
                                                 >
-                                                    Buy Tickets
+                                                    See Reservations
                                                 </Button>
                                             </Link>
                                         </Box>

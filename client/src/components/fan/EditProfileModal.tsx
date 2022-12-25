@@ -19,6 +19,7 @@ import axios from "axios";
 import { User } from "../../types";
 import { API_BASE_URL } from "../../config/variables";
 import { isValidEmail } from "../../helpers/user";
+import { useAlert } from "../../context/AlertContext";
 
 const style = {
     position: "absolute" as "absolute",
@@ -50,6 +51,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
     const [loading, setLoading] = useState<boolean>(false);
     const [apiError, setApiError] = useState<string>("");
 
+    const { setAlert } = useAlert();
+
     const {
         register,
         control,
@@ -73,9 +76,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                         },
                     }
                 )
-                .then((res) => {
+                .then((res: { data: { message: string; user: User } }) => {
+                    setAlert(res?.data?.message, "success");
                     setApiError("");
-                    setUserData(res.data["user"]);
+                    setUserData(res?.data?.user);
                     closeModal();
                 })
                 .catch((err) => {
@@ -90,7 +94,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                     setLoading(false);
                 });
         },
-        [closeModal, reset, setUserData, userData.username]
+        [closeModal, reset, setAlert, setUserData, userData.username]
     );
 
     return (

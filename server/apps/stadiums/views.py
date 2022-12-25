@@ -1,3 +1,4 @@
+from django.db.models.functions import Lower
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -11,7 +12,7 @@ class StadiumView(APIView):
 
     def get(self, request):
         try:
-            stadiums = Stadium.objects.all()
+            stadiums = Stadium.objects.order_by(Lower('name').asc()).all()
             serializedStadiums = StadiumSerializer(stadiums, many=True)
             return Response(data={'stadiums': serializedStadiums.data}, status=200)
         except:

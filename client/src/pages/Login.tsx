@@ -12,10 +12,14 @@ import axios from "axios";
 import { setLoggedInUser } from "../helpers/auth";
 import { API_BASE_URL } from "../config/variables";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAlert } from "../context/AlertContext";
+import { User } from "../types";
 
 const Login: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [apiError, setApiError] = useState<string>("");
+
+    const { setAlert } = useAlert();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -32,20 +36,25 @@ const Login: React.FC = () => {
             setLoading(true);
             axios
                 .post(API_BASE_URL + "/auth/login", values)
-                .then((res) => {
-                    setApiError("");
-                    const user = {
-                        first_name: res.data.user.first_name,
-                        last_name: res.data.user.last_name,
-                        email: res.data.user.email,
-                        gender: res.data.user.gender,
-                        birthDate: res.data.user.birthDate,
-                        nationality: res.data.user.nationality,
-                    };
-                    setLoggedInUser(user, res.data.token);
-                    navigate(location.state?.from || "/");
-                    window.location.reload();
-                })
+                .then(
+                    (res: {
+                        data: { message: string; token: string; user: User };
+                    }) => {
+                        setAlert(res?.data?.message, "success");
+                        setApiError("");
+                        const user = {
+                            first_name: res?.data?.user?.first_name,
+                            last_name: res?.data?.user?.last_name,
+                            email: res?.data?.user?.email,
+                            gender: res?.data?.user?.gender,
+                            birthDate: res?.data?.user?.birthDate,
+                            nationality: res?.data?.user?.nationality,
+                        };
+                        setLoggedInUser(user, res?.data?.token);
+                        navigate(location.state?.from || "/");
+                        window.location.reload();
+                    }
+                )
                 .catch((err) => {
                     if ("detail" in err.response.data) {
                         setApiError(err.response.data.detail);
@@ -60,7 +69,7 @@ const Login: React.FC = () => {
                     setLoading(false);
                 });
         },
-        [location.state?.from, navigate, reset]
+        [location.state?.from, navigate, reset, setAlert]
     );
 
     return (

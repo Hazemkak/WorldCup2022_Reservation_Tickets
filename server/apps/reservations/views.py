@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 
 from .models import Reservation
 from .serializers import ReservationSerializer
-from apps.authentication.middlewares import ManagerGuard, FanGuard, AuthorizationGuard
+from apps.authentication.middlewares import ManagerOrFanGuard, FanGuard, AuthorizationGuard
 from apps.matches.models import Match
 from apps.matches.serializers import MatchSerializer
 from apps.authentication.helpers import getJwtUserId
@@ -13,7 +13,7 @@ import datetime
 
 
 class MatchReservations(APIView):
-    # permission_classes = [FanGuard | ManagerGuard]
+    permission_classes = [ManagerOrFanGuard]
 
     def get(self, request, match_id):
         reservations = Reservation.objects.filter(match=match_id)
@@ -43,18 +43,20 @@ class ReservationView(APIView):
 
             today = datetime.date.today()
             now = datetime.datetime.now().time()
-            match_date = datetime.datetime.strptime(
-                matchSerialized.data['match_date'], '%Y-%m-%d').date()
-            match_time = datetime.datetime.strptime(
-                matchSerialized.data['match_time'], '%H:%M:%S').time()
+            match_date = datetime.datetime.strptime(matchSerialized.data['match_date'], '%Y-%m-%d').date()
+            match_time = datetime.datetime.strptime(matchSerialized.data['match_time'], '%H:%M:%S').time()
 
             if match_date < today or (match_date == today and match_time < now):
                 return JsonResponse({'detail': 'Match reservations are no longer allowed'}, status=status.HTTP_400_BAD_REQUEST)
 
             reservation = Reservation.objects.create(
-                user_id=request.data['user_id'], match_id=matchId, seatId=seatId, reservationDate=request.data['reservationDate'])
+                user_id=request.data['user_id'], 
+                match_id=matchId, 
+                seatId=seatId, 
+                reservationDate=request.data['reservationDate']
+            )
 
-            return JsonResponse(data={"message": "Reservation created successfully", "reservation": ReservationSerializer(reservation).data}, status=status.HTTP_201_CREATED)
+            return JsonResponse(data={"message": "Seat reserved successfully", "reservation": ReservationSerializer(reservation).data}, status=status.HTTP_201_CREATED)
 
         except Exception:
             return JsonResponse({'detail': 'Error while creating reservation'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -71,16 +73,14 @@ class ReservationView(APIView):
                 return JsonResponse({'detail': 'Reservation is not found'}, status=status.HTTP_400_BAD_REQUEST)
 
             reservationSerialized = ReservationSerializer(reservation)
-            match_date = datetime.datetime.strptime(
-                reservationSerialized.data['match']['match_date'], '%Y-%m-%d').date()
+            match_date = datetime.datetime.strptime(reservationSerialized.data['match']['match_date'], '%Y-%m-%d').date()
 
             if match_date < datetime.date.today() + datetime.timedelta(days=3):
                 return JsonResponse({'detail': 'Invalid cancellation before 3 days of match date'}, status=status.HTTP_400_BAD_REQUEST)
 
             Reservation.objects.filter(id=reservationId).delete()
 
-            return JsonResponse({'message': 'Deleted successfully'},
-                                status=status.HTTP_200_OK)
+            return JsonResponse({'message': 'Reservation cancelled successfully'}, status=status.HTTP_200_OK)
 
         except:
             return JsonResponse({'detail': 'Error while deleting reservation'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -92,10 +92,8 @@ class ReservationList(APIView):
     def get(self, request):
         try:
             userId = getJwtUserId(request)
-            reservations = Reservation.objects.filter(user=userId)
-
-            serializedReservations = ReservationSerializer(
-                reservations, many=True)
+            reservations = Reservation.objects.order_by('match__match_date', 'match__match_time', '-reservationDate').filter(user=userId)
+            serializedReservations = ReservationSerializer(reservations, many=True)
             return JsonResponse({'reservations': serializedReservations.data}, status=200)
         except:
             return JsonResponse({'detail': 'Error while getting user reservation'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -11,7 +11,7 @@ class MatchList(APIView):
 
     def get(self, request):
         try:
-            matches = Match.objects.all()
+            matches = Match.objects.order_by('match_date', 'match_time').all()
 
             matches_day = self.request.query_params.get('day', None)
 
