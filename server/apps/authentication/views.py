@@ -28,7 +28,7 @@ class Register(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response({"message": "User created successfully", "user": serializer.data}, status=status.HTTP_201_CREATED)
 
 
 class Login(APIView):
@@ -57,6 +57,6 @@ class Login(APIView):
 
             token = generateToken(payload)
 
-            return Response({"token": token, "user": serializerUser.data}, status=status.HTTP_200_OK)
+            return Response({"message": "User logged in successfully", "token": token, "user": serializerUser.data}, status=status.HTTP_200_OK)
         else:
             raise AuthenticationFailed("User not found", status.HTTP_404_NOT_FOUND)

@@ -19,6 +19,7 @@ import axios from "axios";
 import { API_BASE_URL } from "../../config/variables";
 import useFetch from "../../hooks/useFetch";
 import { Match, Referee, Stadium, Team } from "../../types";
+import { useAlert } from "../../context/AlertContext";
 
 const style = {
     position: "absolute" as "absolute",
@@ -49,6 +50,8 @@ const EditMatchModal: React.FC<EditMatchModalProps> = ({
 }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [apiError, setApiError] = useState<string>("");
+
+    const { setAlert } = useAlert();
 
     const [stadiumData, stadiumErrors, stadiumLoading] = useFetch("stadiums", {
         method: "GET",
@@ -97,9 +100,10 @@ const EditMatchModal: React.FC<EditMatchModalProps> = ({
                         )}`,
                     },
                 })
-                .then((res) => {
+                .then((res: { data: { message: string; match: Match } }) => {
+                    setAlert(res?.data?.message, "success");
                     setApiError("");
-                    setMatchData(res.data.match);
+                    setMatchData(res?.data?.match);
                     closeModal();
                 })
                 .catch((err) => {
@@ -114,7 +118,7 @@ const EditMatchModal: React.FC<EditMatchModalProps> = ({
                     setLoading(false);
                 });
         },
-        [closeModal, matchData?.id, reset, setMatchData]
+        [closeModal, matchData?.id, reset, setAlert, setMatchData]
     );
 
     if (stadiumErrors || teamsErrors || refereesErrors) {
@@ -582,7 +586,7 @@ const EditMatchModal: React.FC<EditMatchModalProps> = ({
                             }
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Create Match
+                            Save
                         </Button>
                     </form>
                 </Box>

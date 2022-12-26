@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
@@ -13,9 +12,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
+import logo from "../../assets/worldlogo.png";
 import { getLoggedInUser, isLoggedIn, logout } from "../../helpers/auth";
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 const navItems = [
     {
         linkText: "Home",
@@ -87,15 +87,31 @@ const Navbar: React.FC = () => {
 
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-            <Typography variant="h6" sx={{ my: 2 }}>
+            <Typography
+                variant="h6"
+                fontWeight="bold"
+                bgcolor="primary.main"
+                color="white"
+                sx={{ py: 2 }}
+            >
                 <Link
                     to="/"
-                    style={{ textDecoration: "none", color: "inherit" }}
+                    style={{
+                        textDecoration: "none",
+                        color: "inherit",
+                        display: "flex",
+                        alignItems: "center",
+                    }}
                 >
-                    World Cup 2022
+                    <img
+                        src={logo}
+                        width="50"
+                        alt="World Cup 2022 Logo"
+                        loading="lazy"
+                    />
+                    FIFA World Cup 2022
                 </Link>
             </Typography>
-            <Divider />
             <List>
                 {navItems.map((item) => (
                     <ListItem key={item.linkPath} disablePadding>
@@ -157,9 +173,20 @@ const Navbar: React.FC = () => {
                     >
                         <Link
                             to="/"
-                            style={{ textDecoration: "none", color: "inherit" }}
+                            style={{
+                                textDecoration: "none",
+                                color: "inherit",
+                                display: "flex",
+                                alignItems: "center",
+                            }}
                         >
-                            World Cup 2022
+                            <img
+                                src={logo}
+                                width="50"
+                                alt="World Cup 2022 Logo"
+                                loading="lazy"
+                            />
+                            FIFA World Cup 2022
                         </Link>
                     </Typography>
                     <Box sx={{ display: { xs: "none", sm: "block" } }}>

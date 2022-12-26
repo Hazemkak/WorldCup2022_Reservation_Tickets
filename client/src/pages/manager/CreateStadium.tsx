@@ -48,10 +48,11 @@ function CreateStadium() {
                 }
             )
             .then((res) => {
-                setAlert("Stadium created successfully", "success");
+                setAlert(res.data.message, "success");
                 setName("");
                 setRows(0);
                 setSeatsPerRow(0);
+                window.location.href = "/manager/panel";
             })
             .catch((err) => {
                 setAlert(err?.response?.data?.detail);

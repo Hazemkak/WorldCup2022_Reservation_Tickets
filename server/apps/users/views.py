@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.db.models.functions import Lower, Concat
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import APIException
@@ -14,7 +15,7 @@ class AdminUsersList(APIView):
 
     def get(self, request):
         try:
-            users = User.objects.all()
+            users = User.objects.order_by('-date_joined').order_by(Concat(Lower('first_name'), Lower('last_name')).asc()).all()
             serializer = UserSerializer(users, many=True)
             return JsonResponse({ "data": serializer.data }, status=status.HTTP_200_OK)
         except APIException as e:
@@ -91,7 +92,7 @@ class UserProfile(APIView):
 
             if serializer.is_valid():
                 serializer.save()
-                return JsonResponse({"user": serializer.data}, status=status.HTTP_200_OK)
+                return JsonResponse({ "message": "Profile updated successfully", "user": serializer.data}, status=status.HTTP_200_OK)
 
             return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except APIException as e:

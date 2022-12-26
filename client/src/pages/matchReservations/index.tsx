@@ -2,10 +2,11 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { getLoggedInUser } from "../../helpers/auth";
+import { isMatchPlayed } from "../../helpers/match";
 import useFetch from "../../hooks/useFetch";
 import { Match, Reservation } from "../../types";
-import SeatCell from "./SeatCell";
-import "./styles/MatchReservations.css";
+import SeatCell from "../../components/reservations/SeatCell";
+import "../../components/reservations/styles/MatchReservations.css";
 
 function MatchReservations() {
     const { match_id } = useParams<{ match_id: string }>();
@@ -23,9 +24,14 @@ function MatchReservations() {
     ] = useFetch("reservations", {
         method: "GET",
         url: `/reservations/${match_id}`,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
     }) as unknown as [Reservation[], unknown, boolean, Function];
 
     const isValidMatchId = !isNaN(parseInt(String(match_id)));
+    const isPlayed = isMatchPlayed(data);
     const isFan = getLoggedInUser()?.role === "0";
     const isManager = getLoggedInUser()?.role === "1";
 
@@ -51,14 +57,41 @@ function MatchReservations() {
             </Typography>
             <div className="seats_container">
                 {isFan && (
-                    <Box>
-                        <Typography color="text.secondary">
-                            You can reserve a seat by clicking on it.
-                        </Typography>
-                        <Typography color="text.secondary" mb={3}>
-                            You can only reserve one seat at a time.
-                        </Typography>
-                    </Box>
+                    <>
+                        {!isPlayed ? (
+                            <Box>
+                                <Typography
+                                    color="text.secondary"
+                                    textAlign="center"
+                                >
+                                    You can reserve a seat by clicking on it.
+                                </Typography>
+                                <Typography
+                                    color="text.secondary"
+                                    mb={3}
+                                    textAlign="center"
+                                >
+                                    You can only reserve one seat at a time.
+                                </Typography>
+                            </Box>
+                        ) : (
+                            <Box>
+                                <Typography
+                                    color="text.secondary"
+                                    textAlign="center"
+                                >
+                                    The match has already been played.
+                                </Typography>
+                                <Typography
+                                    color="text.secondary"
+                                    mb={3}
+                                    textAlign="center"
+                                >
+                                    You can't reserve a seat anymore.
+                                </Typography>
+                            </Box>
+                        )}
+                    </>
                 )}
                 <div>
                     {Array(data?.stadium?.rows)
@@ -91,6 +124,7 @@ function MatchReservations() {
                                                     j +
                                                     1
                                                 }
+                                                isPassedDate={isPlayed}
                                             />
                                         ))}
                                 </div>

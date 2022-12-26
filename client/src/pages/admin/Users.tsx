@@ -20,10 +20,13 @@ import useFetch from "../../hooks/useFetch";
 import { User } from "../../types";
 import { API_BASE_URL } from "../../config/variables";
 import { roles } from "../../helpers/user";
+import { useAlert } from "../../context/AlertContext";
 
 const Users: React.FC = function () {
     const [usersRequests, setUsersRequests] = useState<User[]>([]);
     const [users, setUsers] = useState<User[]>([]);
+
+    const { setAlert } = useAlert();
 
     const [data, error, loading] = useFetch("data", {
         method: "GET",
@@ -60,13 +63,11 @@ const Users: React.FC = function () {
                 },
             })
             .then((res) => {
+                setAlert(res.data.message, "success");
                 setUsers(users.filter((user) => user.username !== username));
             })
             .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => {
-                console.log("User deleted");
+                setAlert(err.response.data.detail, "error");
             });
     };
 
@@ -92,6 +93,7 @@ const Users: React.FC = function () {
                 }
             )
             .then((res) => {
+                setAlert(res.data.message, "success");
                 setUsersRequests(
                     usersRequests.filter((user) => user.username !== username)
                 );
@@ -104,10 +106,7 @@ const Users: React.FC = function () {
                 );
             })
             .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => {
-                console.log("User request approved");
+                setAlert(err.response.data.detail, "error");
             });
     };
 

@@ -2,6 +2,7 @@ import React from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, Button, Link, Typography } from "@mui/material";
 import MatchList from "../matches/MatchList";
+import StadiumsList from "../../components/stadiums/StadiumsList";
 
 const ManagerPanel: React.FC = () => {
     return (
@@ -42,6 +43,7 @@ const ManagerPanel: React.FC = () => {
                 </div>
             </Box>
             <MatchList matchesUrl="/manager/matches" />
+            <StadiumsList />
         </>
     );
 };

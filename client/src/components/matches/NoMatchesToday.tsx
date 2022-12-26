@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import { Item } from "./MatchList";
+import Item from "../Item";
 
 function NoMatchesToday() {
     return (

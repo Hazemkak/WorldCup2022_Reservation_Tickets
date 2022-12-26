@@ -80,3 +80,20 @@ class AuthorizationGuard(permissions.BasePermission):
             raise APIException("You are not authorized", 403)
 
         return True
+
+class ManagerOrFanGuard(permissions.BasePermission):
+    def has_permission(self, request, view):
+        try:
+            jwt = request.headers['Authorization']
+        except:
+            raise APIException("token required", 401)
+
+        payload = isValidToken(jwt)
+
+        if payload == None:
+            raise APIException("Expired token", 401)
+
+        if int(payload['role']) != 1 and int(payload['role']) != 0:
+            raise APIException("You are not authorized", 403)
+
+        return True
