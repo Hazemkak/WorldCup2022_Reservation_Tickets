@@ -17,11 +17,18 @@ services:
     image: ahmedihab/worldcup-server:latest
     ports:
       - "8000:8000"
-    env_file:
-      - ./server/main/.env
     command: ["/usr/src/app/entrypoint.sh"]
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - "SECRET_KEY=SECRET KEY"
+      - "DEBUG=True"
+      - "DB_NAME=world_cup_2022"
+      - "DB_USER=postgres"
+      - "DB_PASSWORD=root"
+      - "DB_HOST=db"
+      - "DB_PORT=5432"
+      - "JWT_SECRET=anysecret"
+      - "JWT_DURATION_MINUTES=55"
     depends_on:
       - db
 

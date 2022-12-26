@@ -12,6 +12,6 @@ docker pull ahmedihab/worldcup-client:latest
 docker pull ahmedihab/worldcup-server:latest
 
 echo "  [+] Start (or Restart) containers: docker-compose up -d"
-docker-compose up -d
+docker-compose -f docker-compose-prod.yml up  -d 
 
 echo "[>] Deployment finished"
