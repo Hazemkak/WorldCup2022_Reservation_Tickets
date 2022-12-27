@@ -33,6 +33,9 @@
 .seat:disabled {
   cursor: default !important;
 }
+.seat:hover:not(:disabled) {
+  background: #c9aecf;
+}
 .seat_reserved {
   background: #5e4663;
   cursor: initial;

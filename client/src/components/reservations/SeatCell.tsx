@@ -61,7 +61,10 @@ const SeatCell: React.FC<SeatCellProps> = ({
                     refetchReservations={refetchReservations}
                     setDisableSeatCell={setDisabled}
                     open={isModalOpen}
-                    closeModal={() => setIsModalOpen(false)}
+                    closeModal={() => {
+                        setDisabled(false);
+                        setIsModalOpen(false);
+                    }}
                 />
             )}
         </>
