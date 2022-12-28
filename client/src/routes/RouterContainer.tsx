@@ -17,7 +17,7 @@ import MatchReservations from "../pages/matchReservations";
 import ManagerMatchDetails from "../pages/manager/ManagerMatchDetails";
 import CreateMatch from "../pages/manager/CreateMatch";
 import CreateStadium from "../pages/manager/CreateStadium";
-import Page404 from "../pages/Page404";
+import Page404 from "../pages/404";
 
 function RouterContainer() {
     return (

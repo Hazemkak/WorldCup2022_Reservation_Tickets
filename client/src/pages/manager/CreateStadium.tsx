@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 import {
     Avatar,
@@ -12,53 +12,49 @@ import StadiumIcon from "@mui/icons-material/Stadium";
 import axios from "axios";
 import { API_BASE_URL } from "../../config/variables";
 import { useAlert } from "../../context/AlertContext";
+import { useForm } from "react-hook-form";
 
 function CreateStadium() {
-    const [name, setName] = React.useState<string>("");
-    const [rows, setRows] = React.useState<number>(0);
-    const [seatsPerRow, setSeatsPerRow] = React.useState<number>(0);
-    const [disabled, setDisabled] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [apiError, setApiError] = useState<string>("");
+
     const { setAlert } = useAlert();
 
-    const validateDate = () => {
-        if (name === "") return setAlert("Name is required");
-        if (rows <= 0 || isNaN(rows))
-            return setAlert("Rows must be greater than 0");
-        if (seatsPerRow <= 0 || isNaN(seatsPerRow))
-            return setAlert("Seats per row must be greater than 0");
-        return true;
-    };
-    const handleSubmit = () => {
-        if (validateDate() !== true) return;
-        setDisabled(true);
-        axios
-            .post(
-                `${API_BASE_URL}/stadiums`,
-                {
-                    name,
-                    rows,
-                    seatsPerRow,
-                },
-                {
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm();
+
+    const onSubmit = useCallback(
+        (values: any) => {
+            setLoading(true);
+            axios
+                .post(`${API_BASE_URL}/stadiums`, values, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem(
                             "token"
                         )}`,
                     },
-                }
-            )
-            .then((res) => {
-                setAlert(res.data.message, "success");
-                setName("");
-                setRows(0);
-                setSeatsPerRow(0);
-                window.location.href = "/manager/panel";
-            })
-            .catch((err) => {
-                setAlert(err?.response?.data?.detail);
-            })
-            .finally(() => setDisabled(false));
-    };
+                })
+                .then((res) => {
+                    setAlert(res.data.message, "success");
+                    setApiError("");
+                    reset();
+                    window.location.href = "/manager/panel";
+                })
+                .catch((err) => {
+                    setAlert(err?.response?.data?.detail, "error");
+                    setApiError(err?.response?.data?.detail);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        },
+        [reset, setAlert]
+    );
+
     return (
         <Box
             sx={{
@@ -74,68 +70,118 @@ function CreateStadium() {
             <Typography component="h1" variant="h5">
                 Add Stadium
             </Typography>
-            <Grid container spacing={3} maxWidth="650px">
-                <Grid item xs={12}>
-                    <TextField
-                        fullWidth
-                        required
-                        id="outlined-required"
-                        label="Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        color="secondary"
-                    />
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                style={{ marginTop: "1rem", maxWidth: "650px" }}
+            >
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            id="name"
+                            label="Name"
+                            autoComplete="name"
+                            autoFocus
+                            {...register("name", {
+                                required: "Name is required",
+                            })}
+                            error={Boolean(errors.name)}
+                            helperText={errors.name?.message?.toString()}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            fullWidth
+                            id="city"
+                            label="City"
+                            {...register("city", {
+                                required: "City is required",
+                            })}
+                            error={Boolean(errors.city)}
+                            helperText={errors.city?.message?.toString()}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            fullWidth
+                            id="country"
+                            label="Country"
+                            {...register("country", {
+                                required: "Country is required",
+                            })}
+                            error={Boolean(errors.country)}
+                            helperText={errors.country?.message?.toString()}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            fullWidth
+                            id="rows"
+                            label="Number of rows"
+                            type="number"
+                            {...register("rows", {
+                                required: "Number of rows is required",
+                                min: {
+                                    value: 1,
+                                    message: "Rows must be greater than 0",
+                                },
+                            })}
+                            error={Boolean(errors.rows)}
+                            helperText={errors.rows?.message?.toString()}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        rows
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            fullWidth
+                            id="seatsPerRow"
+                            label="Number of seats/row"
+                            type="number"
+                            {...register("seatsPerRow", {
+                                required: "Number of seats per row is required",
+                                min: {
+                                    value: 1,
+                                    message:
+                                        "Seats per row must be greater than 0",
+                                },
+                            })}
+                            error={Boolean(errors.seatsPerRow)}
+                            helperText={errors.seatsPerRow?.message?.toString()}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        seats/row
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Box sx={{ color: "red" }}>{apiError}</Box>
+                    </Grid>
+
+                    <Grid item xs={12} sm={4} />
+                    <Grid item xs={12} sm={4}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            fullWidth
+                            size="large"
+                            disabled={loading}
+                        >
+                            Add Stadium
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12} sm={4} />
                 </Grid>
-                <Grid item xs={6}>
-                    <TextField
-                        fullWidth
-                        label="Enter stadium rows"
-                        id="outlined-start-adornment"
-                        type="number"
-                        value={rows}
-                        onChange={(e) => setRows(parseInt(e.target.value))}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    rows
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={6}>
-                    <TextField
-                        fullWidth
-                        label="Enter seats per row"
-                        id="outlined-start-adornment"
-                        type="number"
-                        value={seatsPerRow}
-                        onChange={(e) =>
-                            setSeatsPerRow(parseInt(e.target.value))
-                        }
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    seats/row
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={4} />
-                <Grid item xs={4}>
-                    <Button
-                        variant="contained"
-                        fullWidth
-                        size="large"
-                        onClick={handleSubmit}
-                        disabled={disabled}
-                    >
-                        Add Stadium
-                    </Button>
-                </Grid>
-                <Grid item xs={4} />
-            </Grid>
+            </form>
         </Box>
     );
 }

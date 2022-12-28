@@ -18,10 +18,13 @@ import axios from "axios";
 import { API_BASE_URL } from "../../config/variables";
 import useFetch from "../../hooks/useFetch";
 import { Referee, Stadium, Team } from "../../types";
+import { useAlert } from "../../context/AlertContext";
 
 const CreateMatch: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [apiError, setApiError] = useState<string>("");
+
+    const { setAlert } = useAlert();
 
     const [stadiumData, stadiumErrors, stadiumLoading] = useFetch("stadiums", {
         method: "GET",
@@ -60,7 +63,6 @@ const CreateMatch: React.FC = () => {
 
     const onSubmit = useCallback(
         (values: any) => {
-            console.log(values);
             setLoading(true);
             axios
                 .post(`${API_BASE_URL}/matches/create`, values, {
@@ -71,6 +73,7 @@ const CreateMatch: React.FC = () => {
                     },
                 })
                 .then((res) => {
+                    setAlert(res.data.message, "success");
                     setApiError("");
                     reset();
                     window.location.href =
@@ -78,16 +81,18 @@ const CreateMatch: React.FC = () => {
                 })
                 .catch((err) => {
                     if ("detail" in err.response.data) {
-                        setApiError(err.response.data.detail);
+                        setAlert(err?.response?.data?.detail, "error");
+                        setApiError(err?.response?.data?.detail);
                     } else {
-                        setApiError("Failed to register");
+                        setAlert("Failed to create match", "error");
+                        setApiError("Failed to create match");
                     }
                 })
                 .finally(() => {
                     setLoading(false);
                 });
         },
-        [reset]
+        [reset, setAlert]
     );
 
     if (stadiumErrors || teamsErrors || refereesErrors) {

@@ -7,6 +7,7 @@ import useFetch from "../../hooks/useFetch";
 import { Match, Reservation } from "../../types";
 import SeatCell from "../../components/reservations/SeatCell";
 import "../../components/reservations/styles/MatchReservations.css";
+import Loader from "../../shared/Loader/Loader";
 
 function MatchReservations() {
     const { match_id } = useParams<{ match_id: string }>();
@@ -35,11 +36,11 @@ function MatchReservations() {
     const isFan = getLoggedInUser()?.role === "0";
     const isManager = getLoggedInUser()?.role === "1";
 
-    if (!isValidMatchId) return <Navigate to="-1" />;
+    if (!isValidMatchId) return <Navigate to="/" />;
 
     if (!isFan && !isManager) return <Navigate to="/" />;
 
-    if (loading || loadingReservation) return <>Loading</>;
+    if (loading || loadingReservation) return <Loader />;
 
     if (error || errorReservation)
         return (
@@ -55,8 +56,16 @@ function MatchReservations() {
                 {isFan && "Reserve your seat"}
                 {isManager && "Match reservations"}
             </Typography>
-            <div className="seats_container">
-                {isFan && (
+            <Box
+                className="seats_container"
+                sx={{
+                    mx: {
+                        xs: 0,
+                        md: 3,
+                    },
+                }}
+            >
+                {isFan ? (
                     <>
                         {!isPlayed ? (
                             <Box>
@@ -92,8 +101,25 @@ function MatchReservations() {
                             </Box>
                         )}
                     </>
-                )}
-                <div>
+                ) : isManager ? (
+                    <Typography
+                        color="text.secondary"
+                        textAlign="center"
+                        mb={3}
+                    >
+                        {reservations.length === 0
+                            ? "No reservations yet"
+                            : reservations.length === 1
+                            ? "1 seat is reserved"
+                            : `${reservations.length} seats are reserved`}
+                    </Typography>
+                ) : null}
+                <Box
+                    sx={{
+                        overflowX: "auto",
+                        width: "100%",
+                    }}
+                >
                     {Array(data?.stadium?.rows)
                         .fill(0)
                         .map((_, i) => {
@@ -130,8 +156,8 @@ function MatchReservations() {
                                 </div>
                             );
                         })}
-                </div>
-            </div>
+                </Box>
+            </Box>
         </>
     );
 }

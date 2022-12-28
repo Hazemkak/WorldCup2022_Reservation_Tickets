@@ -3,6 +3,7 @@ import { Grid, Typography } from "@mui/material";
 import { Stadium } from "../../types";
 import useFetch from "../../hooks/useFetch";
 import StadiumCard from "./StadiumCard";
+import Loader from "../../shared/Loader/Loader";
 
 const StadiumsList: React.FC = () => {
     const [data, error, loading] = useFetch("stadiums", {
@@ -13,7 +14,7 @@ const StadiumsList: React.FC = () => {
         },
     }) as unknown as [Stadium[], unknown, boolean];
 
-    if (loading) return <>Loading</>;
+    if (loading) return <Loader />;
     if (error) return <>{error}</>;
 
     return (

@@ -41,9 +41,12 @@ const MatchList: React.FC<MatchListProps> = ({ matchesUrl }) => {
                 rowSpacing={1}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
-                <Grid item xs={3}>
+                <Grid item xs={12} md={5} lg={4} xl={3}>
                     <Item>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <LocalizationProvider
+                            dateAdapter={AdapterDayjs}
+                            sx={{ width: "100%" }}
+                        >
                             <CalendarPicker
                                 date={date}
                                 onChange={(newDate) =>
@@ -55,7 +58,7 @@ const MatchList: React.FC<MatchListProps> = ({ matchesUrl }) => {
                         </LocalizationProvider>
                     </Item>
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item xs={12} md={7} lg={8} xl={9}>
                     <Grid container rowSpacing={1}>
                         {!matches?.length && <NoMatchesToday />}
                         {matches.map((match) => (

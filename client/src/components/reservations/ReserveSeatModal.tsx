@@ -27,6 +27,7 @@ const style = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     maxWidth: 650,
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -119,7 +120,7 @@ const ReserveSeatModal: React.FC<ReserveSeatModalProps> = ({
                         <StadiumIcon />
                     </Avatar>
 
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1" variant="h5" textAlign="center">
                         You are reserving seat number {seatNumber}
                     </Typography>
 
@@ -159,7 +160,13 @@ const ReserveSeatModal: React.FC<ReserveSeatModalProps> = ({
                             helperText={errors.cartNumber?.message?.toString()}
                         />
 
-                        <Grid container spacing={2}>
+                        <Grid
+                            container
+                            spacing={{
+                                xs: 0,
+                                sm: 2,
+                            }}
+                        >
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     margin="normal"

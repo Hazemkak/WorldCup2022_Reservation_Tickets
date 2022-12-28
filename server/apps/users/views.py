@@ -82,11 +82,27 @@ class UserProfile(APIView):
             if payload['username'] != username:
                 return JsonResponse({ "detail": "You are not authorized to view this profile" }, status=status.HTTP_403_FORBIDDEN)
             
-            forbiddenFields = ['username', 'password', 'role', 'isVerified']
+            forbiddenFields = ['username', 'email', 'role', 'isVerified']
 
             for field in forbiddenFields:
                 if field in request.data:
                     return JsonResponse({ "detail": f"{field} cannot be modified" }, status=status.HTTP_400_BAD_REQUEST)
+
+            if request.data['currentPassword'] != "" or request.data['newPassword'] != "" or request.data['confirmNewPassword'] != "":
+                if not user.check_password(request.data['currentPassword']):
+                    return JsonResponse({ "detail": "Current password is incorrect" }, status=status.HTTP_400_BAD_REQUEST)
+                
+                if request.data['newPassword'] != request.data['confirmNewPassword']:
+                    return JsonResponse({ "detail": "New password and confirm new password do not match" }, status=status.HTTP_400_BAD_REQUEST)
+
+                if request.data['newPassword'] == request.data['currentPassword']:
+                    return JsonResponse({ "detail": "New password cannot be the same as the current password" }, status=status.HTTP_400_BAD_REQUEST)
+
+                request.data['password'] = request.data['newPassword']
+
+            del request.data['currentPassword']
+            del request.data['newPassword']
+            del request.data['confirmNewPassword']
 
             serializer = UserSerializer(user, data=request.data, partial=True)
 

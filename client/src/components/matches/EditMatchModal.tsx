@@ -27,6 +27,7 @@ const style = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     maxWidth: 650,
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

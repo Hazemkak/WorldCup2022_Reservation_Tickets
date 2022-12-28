@@ -20,6 +20,7 @@ import { API_BASE_URL } from "../../config/variables";
 import { getLoggedInUser, isLoggedIn } from "../../helpers/auth";
 import EditMatchModal from "../../components/matches/EditMatchModal";
 import { isMatchPlayed } from "../../helpers/match";
+import Loader from "../../shared/Loader/Loader";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#eee",
@@ -28,7 +29,6 @@ const Item = styled(Paper)(({ theme }) => ({
     paddingTop: theme.spacing(5),
     paddingBottom: theme.spacing(5),
     textAlign: "center",
-    margin: "0px 40px",
     marginBottom: "48px",
     color: theme.palette.text.secondary,
 }));
@@ -58,7 +58,7 @@ const MatchDetails: React.FC = () => {
     if (!isValidMatchId) return <p>Wrong param</p>;
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <Loader />;
     }
 
     if (errors) {
@@ -68,13 +68,17 @@ const MatchDetails: React.FC = () => {
     return (
         <>
             <Container maxWidth="md">
-                {isManager && (
+                {isManager && !isPlayed && (
                     <Box
                         sx={{
                             display: "flex",
                             justifyContent: "flex-end",
                             pb: 2,
-                            px: 5,
+                            px: {
+                                xs: "auto",
+                                md: "20px",
+                                lg: "40px",
+                            },
                         }}
                     >
                         <Button
@@ -87,7 +91,15 @@ const MatchDetails: React.FC = () => {
                         </Button>
                     </Box>
                 )}
-                <Item>
+                <Item
+                    sx={{
+                        mx: {
+                            xs: "auto",
+                            md: "20px",
+                            lg: "40px",
+                        },
+                    }}
+                >
                     <Box
                         sx={{
                             display: "flex",
@@ -97,8 +109,15 @@ const MatchDetails: React.FC = () => {
                         <Box
                             sx={{
                                 display: "flex",
+                                flexDirection: {
+                                    xs: "column",
+                                    sm: "row",
+                                },
                                 justifyContent: "space-between",
-                                px: 5,
+                                px: {
+                                    xs: 0,
+                                    sm: 5,
+                                },
                             }}
                         >
                             <Box
@@ -128,7 +147,7 @@ const MatchDetails: React.FC = () => {
                                     flexDirection: "column",
                                     alignItems: "center",
                                     justifyContent: "flex-end",
-                                    mb: 2,
+                                    my: 2,
                                 }}
                             >
                                 <Typography variant="h5" color="text.primary">
@@ -183,15 +202,31 @@ const MatchDetails: React.FC = () => {
                             </Box>
                         </Box>
                         <Divider
-                            sx={{ my: 3, width: "90%", alignSelf: "center" }}
+                            sx={{
+                                my: 3,
+                                mx: {
+                                    xs: 0,
+                                    md: 5,
+                                },
+                            }}
                         />
-                        <Grid container spacing={2} px={5}>
+                        <Grid
+                            container
+                            spacing={2}
+                            px={{
+                                xs: 0,
+                                md: 5,
+                            }}
+                        >
                             <Grid item xs={12} md={6}>
                                 <Box
                                     sx={{
                                         display: "flex",
                                         flexDirection: "column",
-                                        alignItems: "flex-start",
+                                        alignItems: {
+                                            xs: "center",
+                                            md: "flex-start",
+                                        },
                                     }}
                                 >
                                     <Typography
@@ -205,17 +240,18 @@ const MatchDetails: React.FC = () => {
                                         {match?.stadium.name}
                                     </Typography>
                                     <Typography color="text.secondary">
-                                        <strong>City:</strong>{" "}
+                                        <strong>Location:</strong>{" "}
                                         {match?.stadium.city}
-                                    </Typography>
-                                    <Typography color="text.secondary">
-                                        <strong>Country:</strong>{" "}
+                                        {", "}
                                         {match?.stadium.country}
                                     </Typography>
                                     <Typography color="text.secondary">
-                                        <strong>Seats:</strong>{" "}
+                                        <strong>Capacity:</strong>{" "}
                                         {Number(match?.stadium.rows) *
-                                            Number(match?.stadium.seatsPerRow)}
+                                            Number(
+                                                match?.stadium.seatsPerRow
+                                            )}{" "}
+                                        Seats
                                     </Typography>
                                 </Box>
                             </Grid>
@@ -224,8 +260,14 @@ const MatchDetails: React.FC = () => {
                                     sx={{
                                         display: "flex",
                                         flexDirection: "column",
-                                        alignItems: "flex-start",
-                                        width: "fit-content",
+                                        alignItems: {
+                                            xs: "center",
+                                            md: "flex-start",
+                                        },
+                                        width: {
+                                            xs: "100%",
+                                            md: "fit-content",
+                                        },
                                         marginLeft: "auto",
                                     }}
                                 >

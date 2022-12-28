@@ -81,7 +81,13 @@ const Register: React.FC = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 style={{ marginTop: "1rem", maxWidth: "650px" }}
             >
-                <Grid container spacing={2}>
+                <Grid
+                    container
+                    spacing={{
+                        xs: 0,
+                        sm: 2,
+                    }}
+                >
                     <Grid item xs={12} sm={6}>
                         <TextField
                             margin="normal"

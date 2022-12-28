@@ -5,8 +5,8 @@
 }
 
 :root {
-  --header-images-top: 40px;
-  --header-images-left: 130px;
+  --header-images-top: 5%;
+  --header-images-left: 13%;
 }
 
 .home_header {

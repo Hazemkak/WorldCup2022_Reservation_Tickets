@@ -9,6 +9,7 @@ import { getLoggedInUser } from "../../helpers/auth";
 import { genders } from "../../helpers/user";
 import EditProfileModal from "../../components/fan/EditProfileModal";
 import ReservationsList from "../../components/reservations/ReservationsList";
+import Loader from "../../shared/Loader/Loader";
 
 const Profile: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
@@ -31,7 +32,7 @@ const Profile: React.FC = () => {
     }, [data]);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <Loader />;
     }
 
     if (errors) {

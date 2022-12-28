@@ -24,7 +24,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <CssBaseline />
             <Navbar />
             <main>
-                <Box sx={{ m: 6, mt: 12 }}>{children}</Box>
+                <Box
+                    sx={{
+                        m: {
+                            xs: 1,
+                            sm: 2,
+                            md: 6,
+                        },
+                        mt: { xs: 12, sm: 12, md: 12 },
+                    }}
+                >
+                    {children}
+                </Box>
             </main>
             <Footer />
         </ThemeProvider>

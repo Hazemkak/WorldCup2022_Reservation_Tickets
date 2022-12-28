@@ -10,7 +10,14 @@ const ManagerPanel: React.FC = () => {
             <Box
                 sx={{
                     display: "flex",
-                    justifyContent: "space-between",
+                    flexDirection: {
+                        xs: "column",
+                        sm: "row",
+                    },
+                    justifyContent: {
+                        xs: "center",
+                        sm: "space-between",
+                    },
                     alignItems: "center",
                     pb: 5,
                 }}
@@ -18,8 +25,27 @@ const ManagerPanel: React.FC = () => {
                 <Typography variant="h4" fontWeight="bold">
                     Manager Panel
                 </Typography>
-                <div>
-                    <Link href="/manager/matches/create">
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: {
+                            xs: "column",
+                            sm: "row",
+                        },
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                    }}
+                >
+                    <Link
+                        href="/manager/matches/create"
+                        sx={{
+                            textDecoration: "none",
+                            mt: {
+                                xs: 2,
+                                sm: 0,
+                            },
+                        }}
+                    >
                         <Button
                             variant="contained"
                             color="primary"
@@ -29,7 +55,17 @@ const ManagerPanel: React.FC = () => {
                         </Button>
                     </Link>
                     <Link
-                        sx={{ ml: "10px", textDecoration: "none" }}
+                        sx={{
+                            ml: {
+                                xs: 0,
+                                sm: 1,
+                            },
+                            mt: {
+                                xs: 1,
+                                sm: 0,
+                            },
+                            textDecoration: "none",
+                        }}
                         href="/manager/stadium/create"
                     >
                         <Button
@@ -40,7 +76,7 @@ const ManagerPanel: React.FC = () => {
                             Add new Stadium
                         </Button>
                     </Link>
-                </div>
+                </Box>
             </Box>
             <MatchList matchesUrl="/manager/matches" />
             <StadiumsList />

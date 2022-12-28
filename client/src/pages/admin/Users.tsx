@@ -21,6 +21,7 @@ import { User } from "../../types";
 import { API_BASE_URL } from "../../config/variables";
 import { roles } from "../../helpers/user";
 import { useAlert } from "../../context/AlertContext";
+import Loader from "../../shared/Loader/Loader";
 
 const Users: React.FC = function () {
     const [usersRequests, setUsersRequests] = useState<User[]>([]);
@@ -111,7 +112,7 @@ const Users: React.FC = function () {
     };
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <Loader />;
     }
 
     if (error) {

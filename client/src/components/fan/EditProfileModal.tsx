@@ -18,7 +18,6 @@ import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
 import { User } from "../../types";
 import { API_BASE_URL } from "../../config/variables";
-import { isValidEmail } from "../../helpers/user";
 import { useAlert } from "../../context/AlertContext";
 
 const style = {
@@ -27,6 +26,7 @@ const style = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     maxWidth: 650,
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -58,6 +58,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
         control,
         handleSubmit,
         reset,
+        watch,
         formState: { errors },
     } = useForm();
 
@@ -151,20 +152,52 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                         <TextField
                             margin="normal"
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            autoComplete="email"
-                            defaultValue={userData.email}
-                            {...register("email", {
-                                required: "Email is required",
+                            label="Current Password"
+                            type="password"
+                            id="currentPassword"
+                            autoComplete="current-password"
+                            {...register("currentPassword")}
+                            error={Boolean(errors.currentPassword)}
+                            helperText={errors.currentPassword?.message?.toString()}
+                        />
+
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            label="New Password"
+                            type="password"
+                            id="newPassword"
+                            autoComplete="current-password"
+                            {...register("newPassword", {
                                 validate: (value: string) => {
-                                    if (!isValidEmail(value)) {
-                                        return "Invalid email";
+                                    if (
+                                        value !== "" &&
+                                        value === watch("currentPassword")
+                                    ) {
+                                        return "New password must be different from current password";
                                     }
                                 },
                             })}
-                            error={Boolean(errors.email)}
-                            helperText={errors.email?.message?.toString()}
+                            error={Boolean(errors.newPassword)}
+                            helperText={errors.newPassword?.message?.toString()}
+                        />
+
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            label="Confirm New Password"
+                            type="password"
+                            id="confirmNewPassword"
+                            autoComplete="current-password"
+                            {...register("confirmNewPassword", {
+                                validate: (value: string) => {
+                                    if (value !== watch("newPassword")) {
+                                        return "Passwords do not match";
+                                    }
+                                },
+                            })}
+                            error={Boolean(errors.confirmNewPassword)}
+                            helperText={errors.confirmNewPassword?.message?.toString()}
                         />
 
                         <TextField

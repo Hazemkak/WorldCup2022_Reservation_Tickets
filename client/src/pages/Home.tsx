@@ -1,6 +1,7 @@
 import React from "react";
 import AOS from "aos";
 import {
+    Box,
     Button,
     Card,
     CardActions,
@@ -41,10 +42,14 @@ const Home: React.FC = () => {
     AOS.init();
 
     return (
-        <div style={{ padding: "0 3rem" }}>
+        <div style={{ padding: "3rem 3rem 0 3rem" }}>
             <header className="home_header">
-                <Grid container>
-                    <Grid item xs={12} sm={4}>
+                <Grid
+                    container
+                    columnSpacing={5}
+                    justifyContent="space-between"
+                >
+                    <Grid item xs={12} md={6}>
                         <div
                             className="home_header_left"
                             data-aos="fade-right"
@@ -80,9 +85,18 @@ const Home: React.FC = () => {
                             </Link>
                         </div>
                     </Grid>
-                    <Grid item xs={12} sm={2}></Grid>
-                    <Grid item xs={12} sm={6}>
-                        <div className="home_header_right">
+                    <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        sx={{
+                            display: {
+                                xs: "none",
+                                md: "block",
+                            },
+                        }}
+                    >
+                        <Box className="home_header_right">
                             <img
                                 src={WorldCup}
                                 alt="World Cup Trophy"
@@ -107,7 +121,7 @@ const Home: React.FC = () => {
                                 data-aos-duration="500"
                                 data-aos-delay="600"
                             />
-                        </div>
+                        </Box>
                     </Grid>
                 </Grid>
             </header>
@@ -126,13 +140,12 @@ const Home: React.FC = () => {
                     What can you do?
                 </Typography>
                 <Grid container spacing={7}>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12} md={6} lg={4}>
                         <Card
                             sx={{
                                 height: "100%",
                                 display: "flex",
                                 flexDirection: "column",
-                                justifyContent: "space-between",
                             }}
                             data-aos="fade-up"
                             data-aos-duration="500"
@@ -170,7 +183,11 @@ const Home: React.FC = () => {
                                 </Typography>
                             </CardContent>
                             {!isLoggedIn() && (
-                                <CardActions>
+                                <CardActions
+                                    sx={{
+                                        mt: "auto",
+                                    }}
+                                >
                                     <Button size="small" color="primary">
                                         <Link
                                             to="/auth/register"
@@ -186,13 +203,12 @@ const Home: React.FC = () => {
                             )}
                         </Card>
                     </Grid>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12} md={6} lg={4}>
                         <Card
                             sx={{
                                 height: "100%",
                                 display: "flex",
                                 flexDirection: "column",
-                                justifyContent: "space-between",
                             }}
                             data-aos="fade-up"
                             data-aos-duration="500"
@@ -231,7 +247,11 @@ const Home: React.FC = () => {
                                 </Typography>
                             </CardContent>
                             {!isLoggedIn() && (
-                                <CardActions>
+                                <CardActions
+                                    sx={{
+                                        mt: "auto",
+                                    }}
+                                >
                                     <Button size="small" color="primary">
                                         <Link
                                             to="/auth/register"
@@ -247,13 +267,12 @@ const Home: React.FC = () => {
                             )}
                         </Card>
                     </Grid>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12} md={6} lg={4}>
                         <Card
                             sx={{
                                 height: "100%",
                                 display: "flex",
                                 flexDirection: "column",
-                                justifyContent: "space-between",
                             }}
                             data-aos="fade-up"
                             data-aos-duration="500"
@@ -291,7 +310,11 @@ const Home: React.FC = () => {
                                 </Typography>
                             </CardContent>
                             {!isLoggedIn() && (
-                                <CardActions>
+                                <CardActions
+                                    sx={{
+                                        mt: "auto",
+                                    }}
+                                >
                                     <Button size="small" color="primary">
                                         <Link
                                             to="/auth/register"

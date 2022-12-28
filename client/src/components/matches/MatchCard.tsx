@@ -10,7 +10,6 @@ const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: "center",
-    marginLeft: "40px",
     marginBottom: "10px",
     color: theme.palette.text.secondary,
 }));
@@ -37,8 +36,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, matchesUrl }) => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <Grid item xs={1} />
-                        <Grid item xs={8}>
+                        <Grid item xs={9}>
                             <Grid
                                 container
                                 className="teams_grid"

@@ -7,6 +7,7 @@ import { Reservation } from "../../types";
 import useFetch from "../../hooks/useFetch";
 import ReservationListHeader from "./ReservationListHeader";
 import ReservationListTuple from "./ReservationListTuple";
+import Loader from "../../shared/Loader/Loader";
 
 const ReservationsList: React.FC = () => {
     const [data, error, loading, refetchReservations] = useFetch(
@@ -20,7 +21,7 @@ const ReservationsList: React.FC = () => {
         }
     ) as unknown as [Reservation[], unknown, boolean, Function];
 
-    if (loading) return <>Loading</>;
+    if (loading) return <Loader />;
     if (error) return <>{error}</>;
 
     return (
