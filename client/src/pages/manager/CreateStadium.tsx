@@ -167,19 +167,16 @@ function CreateStadium() {
                         <Box sx={{ color: "red" }}>{apiError}</Box>
                     </Grid>
 
-                    <Grid item xs={12} sm={4} />
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12}>
                         <Button
                             type="submit"
                             variant="contained"
                             fullWidth
-                            size="large"
                             disabled={loading}
                         >
                             Add Stadium
                         </Button>
                     </Grid>
-                    <Grid item xs={12} sm={4} />
                 </Grid>
             </form>
         </Box>
