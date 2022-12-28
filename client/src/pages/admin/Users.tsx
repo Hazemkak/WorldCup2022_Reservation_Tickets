@@ -135,20 +135,36 @@ const Users: React.FC = function () {
                             <ListItem
                                 key={userRequest.id}
                                 secondaryAction={
-                                    <Button
-                                        aria-label="approve"
-                                        sx={{ color: "green" }}
-                                        onClick={() =>
-                                            handleUserRequestApproval(
-                                                userRequest.username
-                                            )
-                                        }
-                                    >
-                                        <Typography component="p">
-                                            Approve
-                                        </Typography>
-                                        <CheckCircleIcon sx={{ ml: 1 }} />
-                                    </Button>
+                                    <>
+                                        <Button
+                                            aria-label="approve"
+                                            sx={{ color: "green" }}
+                                            onClick={() =>
+                                                handleUserRequestApproval(
+                                                    userRequest.username
+                                                )
+                                            }
+                                        >
+                                            <Typography component="p">
+                                                Approve
+                                            </Typography>
+                                            <CheckCircleIcon sx={{ ml: 1 }} />
+                                        </Button>
+                                        <Button
+                                            aria-label="deny"
+                                            sx={{ color: "red" }}
+                                            onClick={() =>
+                                                handleUserDelete(
+                                                    userRequest.username
+                                                )
+                                            }
+                                        >
+                                            <Typography component="p">
+                                                Deny
+                                            </Typography>
+                                            <DeleteIcon sx={{ ml: 1 }} />
+                                        </Button>
+                                    </>
                                 }
                             >
                                 <ListItemAvatar>
