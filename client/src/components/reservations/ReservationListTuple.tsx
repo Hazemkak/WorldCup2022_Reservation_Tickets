@@ -60,6 +60,9 @@ const ReservationListTuple: React.FC<ReservationListTupleProps> = ({
             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
         >
             <TableCell component="th" scope="row">
+                {reservation?.id}
+            </TableCell>
+            <TableCell component="th" scope="row">
                 {reservation?.seatId}
             </TableCell>
             <TableCell align="left">

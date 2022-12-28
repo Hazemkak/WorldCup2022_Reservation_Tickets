@@ -9,6 +9,7 @@ interface Header {
 }
 
 const Headers: Header[] = [
+    { title: "Ticket #", align: "left" },
     { title: "Seat ID", align: "left" },
     { title: "Match", align: "left" },
     { title: "Date", align: "left" },
