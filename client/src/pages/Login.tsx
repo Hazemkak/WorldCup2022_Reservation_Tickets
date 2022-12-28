@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -71,6 +71,15 @@ const Login: React.FC = () => {
         },
         [location.state?.from, navigate, reset, setAlert]
     );
+
+    useEffect(() => {
+        const error = localStorage.getItem("error");
+        if (error) {
+            setApiError(error);
+            setAlert(error, "error");
+            localStorage.removeItem("error");
+        }
+    }, [setAlert]);
 
     return (
         <Box

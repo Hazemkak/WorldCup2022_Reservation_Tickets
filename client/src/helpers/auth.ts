@@ -11,7 +11,28 @@ export const getLoggedInUser = (): User | null => {
     const token = localStorage.getItem("token");
 
     if (token && user) {
-        const decoded: object = jwt_decode(token);
+        const decoded: {
+            id: number;
+            username: string;
+            role: string;
+            isVerified: boolean;
+            created_at: string;
+            exp: number;
+        } = jwt_decode(token);
+
+        // If the current date has passed the expiration date, then the token is expired
+        const isExpired = decoded.exp * 1000 < new Date().getTime();
+
+        // If the token is expired, logout the user
+        if (isExpired) {
+            logout();
+            localStorage.setItem(
+                "error",
+                "Session expired, please login again"
+            );
+            return null;
+        }
+
         return { ...decoded, ...JSON.parse(user) } as User;
     }
 

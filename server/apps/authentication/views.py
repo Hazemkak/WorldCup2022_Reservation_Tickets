@@ -8,6 +8,7 @@ import datetime
 from .helpers import generateToken
 from apps.users.models import User
 from apps.users.serializers import UserSerializer
+from main.settings import JWT_DURATION_MINUTES
 
 
 class Register(APIView):
@@ -50,7 +51,8 @@ class Login(APIView):
                 'username': user.username,
                 'role': user.role,
                 'isVerified': user.isVerified,
-                'created_at': datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")
+                'created_at': datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S"),
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=int(JWT_DURATION_MINUTES))
             }
 
             serializerUser = UserSerializer(user)
