@@ -116,46 +116,52 @@ function MatchReservations() {
                 ) : null}
                 <Box
                     sx={{
-                        overflowX: "auto",
-                        width: "100%",
+                        maxWidth: "100%",
                     }}
                 >
-                    {Array(data?.stadium?.rows)
-                        .fill(0)
-                        .map((_, i) => {
-                            const reserved = reservations.map(
-                                (reservation) => reservation.seatId
-                            );
-                            return (
-                                <div key={i} className="seat_row">
-                                    {Array(data?.stadium?.seatsPerRow)
-                                        .fill(0)
-                                        .map((_, j) => (
-                                            <SeatCell
-                                                key={j}
-                                                isReserved={reserved.includes(
-                                                    i *
-                                                        data?.stadium
-                                                            ?.seatsPerRow +
+                    <Box
+                        sx={{
+                            overflowX: "auto",
+                            width: "100%",
+                        }}
+                    >
+                        {Array(data?.stadium?.rows)
+                            .fill(0)
+                            .map((_, i) => {
+                                const reserved = reservations.map(
+                                    (reservation) => reservation.seatId
+                                );
+                                return (
+                                    <div key={i} className="seat_row">
+                                        {Array(data?.stadium?.seatsPerRow)
+                                            .fill(0)
+                                            .map((_, j) => (
+                                                <SeatCell
+                                                    key={j}
+                                                    isReserved={reserved.includes(
+                                                        i *
+                                                            data?.stadium
+                                                                ?.seatsPerRow +
+                                                            j +
+                                                            1
+                                                    )}
+                                                    refetchReservations={
+                                                        refetchReservations
+                                                    }
+                                                    seatId={
+                                                        i *
+                                                            data?.stadium
+                                                                ?.seatsPerRow +
                                                         j +
                                                         1
-                                                )}
-                                                refetchReservations={
-                                                    refetchReservations
-                                                }
-                                                seatId={
-                                                    i *
-                                                        data?.stadium
-                                                            ?.seatsPerRow +
-                                                    j +
-                                                    1
-                                                }
-                                                isPassedDate={isPlayed}
-                                            />
-                                        ))}
-                                </div>
-                            );
-                        })}
+                                                    }
+                                                    isPassedDate={isPlayed}
+                                                />
+                                            ))}
+                                    </div>
+                                );
+                            })}
+                    </Box>
                 </Box>
             </Box>
         </>
