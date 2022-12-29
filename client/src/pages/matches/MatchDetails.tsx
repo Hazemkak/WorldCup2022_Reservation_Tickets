@@ -53,6 +53,7 @@ const MatchDetails: React.FC = () => {
     const isValidMatchId = !isNaN(parseInt(String(match_id)));
     const isPlayed = isMatchPlayed(data);
     const isLoggedInUser = isLoggedIn();
+    const isFan = getLoggedInUser()?.role === "0";
     const isManager = getLoggedInUser()?.role === "1";
 
     if (!isValidMatchId) return <p>Wrong param</p>;
@@ -297,7 +298,7 @@ const MatchDetails: React.FC = () => {
                                     </Typography>
                                 </Box>
                             </Grid>
-                            {!isManager && isLoggedInUser && (
+                            {isLoggedInUser && isFan && (
                                 <Box sx={{ width: "100%" }}>
                                     <Divider
                                         sx={{
