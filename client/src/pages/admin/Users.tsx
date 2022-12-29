@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
     Avatar,
+    Box,
     Button,
     Grid,
     IconButton,
@@ -15,6 +16,7 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import PersonIcon from "@mui/icons-material/Person";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CancelIcon from "@mui/icons-material/Cancel";
 import axios from "axios";
 import useFetch from "../../hooks/useFetch";
 import { User } from "../../types";
@@ -135,48 +137,15 @@ const Users: React.FC = function () {
                         {usersRequests.map((userRequest) => (
                             <ListItem
                                 key={userRequest.id}
-                                secondaryAction={
-                                    <>
-                                        <Button
-                                            aria-label="approve"
-                                            sx={{ color: "green" }}
-                                            onClick={() =>
-                                                handleUserRequestApproval(
-                                                    userRequest.username
-                                                )
-                                            }
-                                        >
-                                            <Typography component="p">
-                                                Approve
-                                            </Typography>
-                                            <CheckCircleIcon sx={{ ml: 1 }} />
-                                        </Button>
-                                        <Button
-                                            aria-label="deny"
-                                            sx={{ color: "red" }}
-                                            onClick={() =>
-                                                handleUserDelete(
-                                                    userRequest.username
-                                                )
-                                            }
-                                        >
-                                            <Typography component="p">
-                                                Deny
-                                            </Typography>
-                                            <DeleteIcon sx={{ ml: 1 }} />
-                                        </Button>
-                                    </>
-                                }
+                                sx={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    justifyContent: "center",
+                                }}
                             >
                                 <ListItemAvatar>
                                     <Avatar sx={{ bgcolor: "primary.main" }}>
-                                        {userRequest.role === "0" ? (
-                                            <PersonIcon />
-                                        ) : userRequest.role === "1" ? (
-                                            <ManageAccountsIcon />
-                                        ) : (
-                                            <AdminPanelSettingsIcon />
-                                        )}
+                                        <ManageAccountsIcon />
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText
@@ -185,6 +154,36 @@ const Users: React.FC = function () {
                                     } (${roles[userRequest.role]})`}
                                     secondary={`${userRequest.username} - ${userRequest.email}`}
                                 />
+                                <Box>
+                                    <Button
+                                        aria-label="approve"
+                                        sx={{ color: "green" }}
+                                        onClick={() =>
+                                            handleUserRequestApproval(
+                                                userRequest.username
+                                            )
+                                        }
+                                    >
+                                        <Typography component="p">
+                                            Approve
+                                        </Typography>
+                                        <CheckCircleIcon sx={{ ml: 1 }} />
+                                    </Button>
+                                    <Button
+                                        aria-label="deny"
+                                        sx={{ color: "red" }}
+                                        onClick={() =>
+                                            handleUserDelete(
+                                                userRequest.username
+                                            )
+                                        }
+                                    >
+                                        <Typography component="p">
+                                            Deny
+                                        </Typography>
+                                        <CancelIcon sx={{ ml: 1 }} />
+                                    </Button>
+                                </Box>
                             </ListItem>
                         ))}
                     </List>
