@@ -26,6 +26,7 @@
 }
 
 .home_header_left button.register {
+  margin-top: 0.75rem;
   margin-right: 1rem;
   padding: 15px 25px;
   border: 2px solid #550065;  
@@ -42,6 +43,7 @@
 }
 
 .home_header_left button.view_matches {
+  margin-top: 0.75rem;
   padding: 15px 25px;
   border: 2px solid #550065;  
   background-color: #550065;

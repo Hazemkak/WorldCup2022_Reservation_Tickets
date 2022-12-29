@@ -46,7 +46,7 @@ const Home: React.FC = () => {
             sx={{
                 pt: {
                     xs: "0rem",
-                    md: "3rem",
+                    md: "1rem",
                 },
                 px: {
                     xs: "0rem",
