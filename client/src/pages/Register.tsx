@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
     Avatar,
@@ -19,6 +19,7 @@ import axios from "axios";
 import { API_BASE_URL } from "../config/variables";
 import { isValidEmail } from "../helpers/user";
 import { useAlert } from "../context/AlertContext";
+import nationalities from "../data/nationalities";
 
 const Register: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -61,6 +62,10 @@ const Register: React.FC = () => {
         },
         [reset, setAlert]
     );
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <Box
@@ -182,22 +187,46 @@ const Register: React.FC = () => {
                     helperText={errors.confirmPassword?.message?.toString()}
                 />
 
-                <TextField
+                <FormControl
                     margin="normal"
                     fullWidth
-                    id="nationality"
-                    label="Nationality"
-                    autoComplete="nationality"
-                    {...register("nationality")}
-                    defaultValue=""
                     error={Boolean(errors.nationality)}
-                    helperText={errors.nationality?.message?.toString()}
-                />
+                >
+                    <InputLabel htmlFor="nationality" id="nationality-label">
+                        Select Your Nationality
+                    </InputLabel>
+                    <Controller
+                        render={({ field: props }) => (
+                            <Select
+                                value={props.value}
+                                onChange={props.onChange}
+                            >
+                                <MenuItem value="" disabled selected>
+                                    Choose your nationality
+                                </MenuItem>
+                                {nationalities.map((nationality) => (
+                                    <MenuItem
+                                        key={nationality}
+                                        value={nationality}
+                                    >
+                                        {nationality}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        )}
+                        name="nationality"
+                        control={control}
+                        defaultValue=""
+                    />
+                    <FormHelperText>
+                        {errors.nationality?.message?.toString()}
+                    </FormHelperText>
+                </FormControl>
 
                 <Controller
                     name="birthDate"
                     control={control}
-                    defaultValue={new Date()}
+                    defaultValue=""
                     rules={{
                         required: "Please choose your birth date.",
                     }}

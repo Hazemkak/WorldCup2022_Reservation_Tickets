@@ -19,6 +19,7 @@ import axios from "axios";
 import { User } from "../../types";
 import { API_BASE_URL } from "../../config/variables";
 import { useAlert } from "../../context/AlertContext";
+import nationalities from "../../data/nationalities";
 
 const style = {
     position: "absolute" as "absolute",
@@ -200,17 +201,44 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                             helperText={errors.confirmNewPassword?.message?.toString()}
                         />
 
-                        <TextField
+                        <FormControl
                             margin="normal"
                             fullWidth
-                            id="nationality"
-                            label="Nationality"
-                            autoComplete="nationality"
-                            defaultValue={userData.nationality}
-                            {...register("nationality")}
                             error={Boolean(errors.nationality)}
-                            helperText={errors.nationality?.message?.toString()}
-                        />
+                        >
+                            <InputLabel
+                                htmlFor="nationality"
+                                id="nationality-label"
+                            >
+                                Select Your Nationality
+                            </InputLabel>
+                            <Controller
+                                render={({ field: props }) => (
+                                    <Select
+                                        value={props.value}
+                                        onChange={props.onChange}
+                                    >
+                                        <MenuItem value="" disabled selected>
+                                            Choose your nationality
+                                        </MenuItem>
+                                        {nationalities.map((nationality) => (
+                                            <MenuItem
+                                                key={nationality}
+                                                value={nationality}
+                                            >
+                                                {nationality}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                )}
+                                name="nationality"
+                                control={control}
+                                defaultValue={userData.nationality}
+                            />
+                            <FormHelperText>
+                                {errors.nationality?.message?.toString()}
+                            </FormHelperText>
+                        </FormControl>
 
                         <Controller
                             name="birthDate"
