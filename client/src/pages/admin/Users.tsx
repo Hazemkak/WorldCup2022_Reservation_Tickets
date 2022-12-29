@@ -54,7 +54,7 @@ const Users: React.FC = function () {
         }
     }, [data]);
 
-    const handleUserDelete = (username: string) => {
+    const handleUserDelete = (username: string, isManagerRequest: boolean) => {
         if (!window.confirm("Are you sure you want to delete this user?")) {
             return;
         }
@@ -67,7 +67,17 @@ const Users: React.FC = function () {
             })
             .then((res) => {
                 setAlert(res.data.message, "success");
-                setUsers(users.filter((user) => user.username !== username));
+                if (isManagerRequest) {
+                    setUsersRequests(
+                        usersRequests.filter(
+                            (user) => user.username !== username
+                        )
+                    );
+                } else {
+                    setUsers(
+                        users.filter((user) => user.username !== username)
+                    );
+                }
             })
             .catch((err) => {
                 setAlert(err.response.data.detail, "error");
@@ -174,7 +184,8 @@ const Users: React.FC = function () {
                                         sx={{ color: "red" }}
                                         onClick={() =>
                                             handleUserDelete(
-                                                userRequest.username
+                                                userRequest.username,
+                                                true
                                             )
                                         }
                                     >
@@ -205,7 +216,10 @@ const Users: React.FC = function () {
                                             edge="end"
                                             aria-label="delete"
                                             onClick={() =>
-                                                handleUserDelete(user.username)
+                                                handleUserDelete(
+                                                    user.username,
+                                                    false
+                                                )
                                             }
                                         >
                                             <DeleteIcon sx={{ color: "red" }} />
