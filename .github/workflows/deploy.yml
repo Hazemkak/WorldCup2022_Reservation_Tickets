@@ -3,7 +3,7 @@ name: Deploy WorldCup Website
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   build:
