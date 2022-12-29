@@ -150,7 +150,13 @@ const EditMatchModal: React.FC<EditMatchModalProps> = ({
                     </Typography>
                     <form
                         onSubmit={handleSubmit(onSubmit)}
-                        style={{ marginTop: "1rem", maxWidth: "650px" }}
+                        style={{
+                            marginTop: "1rem",
+                            padding: "0.5rem 0",
+                            maxWidth: "650px",
+                            maxHeight: "60vh",
+                            overflowY: "auto",
+                        }}
                     >
                         <Grid container spacing={3}>
                             <Grid item xs={12}>

@@ -126,7 +126,12 @@ const ReserveSeatModal: React.FC<ReserveSeatModalProps> = ({
 
                     <form
                         onSubmit={handleSubmit(onSubmit)}
-                        style={{ marginTop: "1rem", maxWidth: "650px" }}
+                        style={{
+                            marginTop: "1rem",
+                            maxWidth: "650px",
+                            maxHeight: "60vh",
+                            overflowY: "auto",
+                        }}
                     >
                         <TextField
                             margin="normal"

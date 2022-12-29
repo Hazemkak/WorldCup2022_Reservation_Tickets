@@ -11,7 +11,11 @@ function Page404() {
                 src="/world_cup.svg"
                 alt="world_cup_photo"
             />
-            <Link className="not_found_container_anchor" to="/">
+            <Link
+                style={{ textDecoration: "none" }}
+                className="not_found_container_anchor"
+                to="/"
+            >
                 Go to home page
             </Link>
         </div>

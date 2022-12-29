@@ -113,9 +113,20 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
 
                     <form
                         onSubmit={handleSubmit(onSubmit)}
-                        style={{ marginTop: "1rem", maxWidth: "650px" }}
+                        style={{
+                            marginTop: "1rem",
+                            maxWidth: "650px",
+                            maxHeight: "60vh",
+                            overflowY: "auto",
+                        }}
                     >
-                        <Grid container spacing={2}>
+                        <Grid
+                            container
+                            spacing={{
+                                xs: 0,
+                                sm: 2,
+                            }}
+                        >
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     margin="normal"

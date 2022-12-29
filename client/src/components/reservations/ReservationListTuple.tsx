@@ -67,7 +67,7 @@ const ReservationListTuple: React.FC<ReservationListTupleProps> = ({
             </TableCell>
             <TableCell align="left">
                 <Link
-                    to={`/matches/${reservation?.match?.id}`}
+                    to={`/match/reservations/${reservation?.match?.id}`}
                     style={{
                         textDecoration: "none",
                         color: "#3636ff",

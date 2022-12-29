@@ -72,7 +72,10 @@ const MatchDetails: React.FC = () => {
                     <Box
                         sx={{
                             display: "flex",
-                            justifyContent: "flex-end",
+                            justifyContent: {
+                                xs: "center",
+                                md: "flex-end",
+                            },
                             pb: 2,
                             px: {
                                 xs: "auto",
@@ -313,6 +316,9 @@ const MatchDetails: React.FC = () => {
                                         >
                                             <Link
                                                 href={`/match/reservations/${match?.id}`}
+                                                sx={{
+                                                    textDecoration: "none",
+                                                }}
                                             >
                                                 <Button
                                                     variant="contained"

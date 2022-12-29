@@ -21,12 +21,12 @@ function AlertMessage() {
     return (
         <>
             {context?.message?.show && (
-                <div className={`container`}>
-                    <div className={`box`}>
-                        <div className={`title`}>{context?.message?.text}</div>
-                        <div className={`icon`}>
+                <div className="container" data-aos="fade-left">
+                    <div className="box">
+                        <div className="icon">
                             {Icons[context?.message?.type ?? "error"]}
                         </div>
+                        <div className="title">{context?.message?.text}</div>
                     </div>
                 </div>
             )}

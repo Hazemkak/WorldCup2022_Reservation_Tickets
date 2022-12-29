@@ -42,7 +42,18 @@ const Home: React.FC = () => {
     AOS.init();
 
     return (
-        <div style={{ padding: "3rem 3rem 0 3rem" }}>
+        <Box
+            sx={{
+                pt: {
+                    xs: "0rem",
+                    md: "3rem",
+                },
+                px: {
+                    xs: "0rem",
+                    md: "3rem",
+                },
+            }}
+        >
             <header className="home_header">
                 <Grid
                     container
@@ -72,13 +83,19 @@ const Home: React.FC = () => {
                                 )}
                             </p>
                             {!isLoggedIn() && (
-                                <Link to="/auth/register">
+                                <Link
+                                    style={{ textDecoration: "none" }}
+                                    to="/auth/register"
+                                >
                                     <button className="register">
                                         Register
                                     </button>
                                 </Link>
                             )}
-                            <Link to="/matches">
+                            <Link
+                                style={{ textDecoration: "none" }}
+                                to="/matches"
+                            >
                                 <button className="view_matches">
                                     View Matches
                                 </button>
@@ -332,7 +349,7 @@ const Home: React.FC = () => {
                     </Grid>
                 </Grid>
             </section>
-        </div>
+        </Box>
     );
 };
 

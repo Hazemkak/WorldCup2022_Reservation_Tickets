@@ -45,14 +45,31 @@ const Profile: React.FC = () => {
 
     return (
         <Container>
-            <Grid container spacing={4} sx={{ mb: 2 }}>
+            <Grid
+                container
+                spacing={{
+                    xs: 2,
+                    md: 4,
+                }}
+                sx={{ mb: 2 }}
+            >
                 <Grid item xs={12} md={6}>
                     <Typography variant="h4" component="h1" fontWeight="bold">
                         {user.first_name} {user.last_name}
                     </Typography>
                 </Grid>
                 {username === getLoggedInUser()?.username && (
-                    <Grid item xs={12} md={6} sx={{ textAlign: "right" }}>
+                    <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        sx={{
+                            textAlign: {
+                                xs: "left",
+                                md: "right",
+                            },
+                        }}
+                    >
                         <Button
                             variant="contained"
                             color="primary"
