@@ -38,6 +38,19 @@ services:
       - "80:80"
     depends_on:
       - django
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes: 
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email ahmedbaz14@gmail.com -d worldcup.uksouth.cloudapp.azure.com --agree-tos
+    depends_on:
+      - frontend
 
 volumes:
   postgres:
