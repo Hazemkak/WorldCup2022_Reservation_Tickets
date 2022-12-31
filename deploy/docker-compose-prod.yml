@@ -36,6 +36,7 @@ services:
     image: ahmedihab/worldcup-client:latest
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - django
     volumes:
