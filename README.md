@@ -1,6 +1,6 @@
 # World Cup 2022 Reservation System
 
-(Book a match!)[http://worldcup.uksouth.cloudapp.azure.com/]
+[Book a match!](http://worldcup.uksouth.cloudapp.azure.com/)
 
 This is a simple reservation system for the 2022 World Cup. It is a simple web application that allows users to reserve tickets for the World Cup. It is built using the Django framework for the backend, and React.js and TypeScript for the frontend.
 
