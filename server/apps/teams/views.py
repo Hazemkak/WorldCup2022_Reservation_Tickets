@@ -1,3 +1,4 @@
+from django.db.models.functions import Lower
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -11,8 +12,8 @@ class TeamView(APIView):
 
     def get(self, request):
         try:
-            teams = Team.objects.all()
+            teams = Team.objects.order_by(Lower('name').asc()).all()
             serializedTeams = TeamSerializer(teams, many=True)
             return Response(data={'teams': serializedTeams.data}, status=200)
         except:
-            return Response(data={"error":"Error while retrieving teams"},status=500)
+            return Response(data={"detail":"Error while retrieving teams"},status=500)

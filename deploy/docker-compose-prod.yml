@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  db:
+    image: "postgres:14.1-alpine"
+    environment:
+      - POSTGRES_DB=world_cup_2022
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    container_name: db
+    hostname: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - "postgres:/var/lib/postgresql/data"
+
+  django:
+    image: ahmedihab/worldcup-server:latest
+    ports:
+      - "8000:8000"
+    command: ["/usr/src/app/entrypoint.sh"]
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - "SECRET_KEY=SECRET KEY"
+      - "DEBUG=True"
+      - "DB_NAME=world_cup_2022"
+      - "DB_USER=postgres"
+      - "DB_PASSWORD=root"
+      - "DB_HOST=db"
+      - "DB_PORT=5432"
+      - "JWT_SECRET=anysecret"
+      - "JWT_DURATION_MINUTES=55"
+    depends_on:
+      - db
+
+  frontend:
+    image: ahmedihab/worldcup-client:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - django
+
+volumes:
+  postgres:

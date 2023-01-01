@@ -1,10 +1,15 @@
-import './App.css';
+import AlertContextProvider from "./context/AlertContext";
+import AlertMessage from "./shared/Alerts/Alert";
+import RouterContainer from "./routes/RouterContainer";
+import 'aos/dist/aos.css';
+import "./App.css";
 
 function App() {
   return (
-    <div>
-      <h1>World Cup 2022 Reservation System</h1>
-    </div>
+    <AlertContextProvider>
+      <AlertMessage />
+      <RouterContainer />
+    </AlertContextProvider>
   );
 }
 

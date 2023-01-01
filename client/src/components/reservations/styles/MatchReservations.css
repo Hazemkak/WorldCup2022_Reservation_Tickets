@@ -1,0 +1,43 @@
+.seats_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 48px;
+  overflow-x: hidden;
+  padding-bottom: 50px;
+  border-radius: 5px;
+  background-color: #eee;
+  padding: 20px;
+}
+
+.seat_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.seat {
+  min-width: 40px;
+  margin: 5px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #efefef;
+  box-shadow: 0px 4px 4px rgba(219, 219, 219, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+}
+.seat:disabled {
+  cursor: default !important;
+}
+.seat:hover:not(:disabled) {
+  background: #c9aecf;
+}
+.seat_reserved {
+  background: #5e4663;
+  cursor: initial;
+  color: white;
+}

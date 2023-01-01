@@ -29,3 +29,14 @@ def isValidToken(bearer_token):
     except:
         return None
 
+
+def getJwtUserId(request):
+    try:
+
+        bearer_token = request.headers['Authorization']
+        token = bearer_token.split(' ')[-1]
+        payload = decode(token, JWT_SECRET, algorithms="HS256")
+
+        return int(payload['id'])
+    except:
+        return None

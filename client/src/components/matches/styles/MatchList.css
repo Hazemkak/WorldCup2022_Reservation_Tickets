@@ -1,0 +1,19 @@
+.teams_container {
+  display: flex;
+  align-items: center;
+}
+.team_img {
+  width: 45px;
+  margin: 0 15px;
+}
+.team_name {
+  font-size: medium;
+  font-weight: bold;
+}
+.card_link {
+  cursor: pointer;
+}
+.teams_grid {
+  margin: 10px 0;
+  border-right: 1px solid lightgrey;
+}
